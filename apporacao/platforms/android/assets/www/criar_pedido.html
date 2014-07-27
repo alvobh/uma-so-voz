@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/jquery.mobile-1.4.2.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script src="js/parse.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/login.js"></script>
+<script src="js/criar_pedido.js"></script>
+</head>
+
+<body>
+
+<div data-role="page" id="divpedido">
+
+	<div data-role="header">
+		<h1>Pedido de Oracao</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<form id="formPedido" accept-charset="utf-8">
+			<div style="">
+				<label for="username">Email:</label>
+				<input type="email" name="username" id="username" />
+				<br />
+				<label for="pedido">Pedido:</label>
+				<textarea id="pedido" name="pedido" rows="7" cols="40"></textarea>
+				<br />
+			</div>
+		</form>
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+		    <a href="#" id="pedidobtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Fazer Pedido</a>
+		</div>
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+</body>
+</html>

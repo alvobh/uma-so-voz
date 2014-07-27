@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/jquery.mobile-1.4.2.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/parse.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/signup.js"></script>
+</head>
+
+<body>
+
+<div data-role="page" id="registration">
+
+	<div data-role="header">
+		<h1>App Oração</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<form name="formregistration" id="formregistration">
+			<label for="usernameforreg">Nome:</label>
+			<input type="text" name="usernameforreg" id="usernameforreg" />
+			<br />
+			<label for="useremail">Email:</label>
+			<input type="email" name="useremail" id="useremail" />
+			<br/>
+			<label for="passwordforreg">Senha:</label>
+			<input type="password" name="passwordforreg" id="passwordforreg" />
+			<br/>
+			<label for="retypepasswordforreg">Confirmação senha:</label>
+			<input type="password" name="retypepasswordforreg" id="retypepasswordforreg" />
+    	</form>
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+		    <a href="#" id="submitbtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">CRIAR</a>
+		    <a href="#" id="cancelarbtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-back ui-btn-b">CANCELAR</a>
+		</div>
+	</div><!-- /footer -->
+
+</body>
+</html>
