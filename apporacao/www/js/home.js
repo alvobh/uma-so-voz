@@ -23,9 +23,17 @@ $(document).ready(function() {
 
 	$('#addbtn').on('click', function (e) {
 		e.preventDefault();
-		alert('ToDO...');
+		document.location = "criar_pedido.html";
 	});
 
+	$('#meuspedidosbtn').on('click', function (e) {
+		e.preventDefault();
+		document.location = "meus_pedidos.html";
+		
+	});
+
+
+// Fazer o filtro de pedidos por usuario.
 	var Oracao = Parse.Object.extend("Oracao");
 	var query = new Parse.Query(Oracao);
 	query.find({
