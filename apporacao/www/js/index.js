@@ -20,7 +20,6 @@ var app = {
     // Application Constructor
     initialize: function() {
     	var user = Parse.User.current();
-
     	if (user == null) {
     		document.location = "login.html";
     	} else {

@@ -8,8 +8,7 @@
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 <script src="js/parse.min.js"></script>
 <script src="js/main.js"></script>
-<script src="js/login.js"></script>
-<script src="js/criar_pedido.js"></script>
+<script src="js/pedido.js"></script>
 </head>
 
 <body>
@@ -17,17 +16,21 @@
 <div data-role="page" id="divpedido">
 
 	<div data-role="header">
+		<a href="#" id="backbtn" data-icon="back" data-iconpos="notext">Voltar</a> 
 		<h1>Pedido de Oracao</h1>
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
 		<form id="formPedido" accept-charset="utf-8">
 			<div style="">
-				<label for="username">Email:</label>
-				<input type="email" name="username" id="username" />
+				<label for="nome">Email:</label>
+				<input type="text" name="nome" id="nome" />
 				<br />
 				<label for="pedido">Pedido:</label>
 				<textarea id="pedido" name="pedido" rows="7" cols="40"></textarea>
+				<br />
+				<label for="resposta">Resposta:</label>
+				<textarea id="resposta" name="resposta" rows="7" cols="40"></textarea>
 				<br />
 			</div>
 		</form>
@@ -36,6 +39,7 @@
 	<div data-role="footer">
 		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 		    <a href="#" id="pedidobtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Fazer Pedido</a>
+		    <a href="#" id="respostabtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Fechar Pedido</a>
 		</div>
 	</div><!-- /footer -->
 

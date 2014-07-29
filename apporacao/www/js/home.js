@@ -1,14 +1,15 @@
 function getRow(oracao) {
+	var oracaoId = oracao.id;
 	var nome = oracao.get('nome');
 	var texto = oracao.get('texto');
 	var resposta = oracao.get('resposta');
 	if (!resposta) {
 		resposta = '';
 	}
-	var row = '<li><a href="#">'
+	var row = '<li><a href="pedido.html?oracaoId='+oracaoId+'">'
 	+ '<h2>' + nome + '</h2>'
 	+ '<p><strong>Pedido/Necessidade:</strong> ' + texto + '</p>'
-	+ '<p><strong>Situação atual/Resposta:</strong> ' + resposta + '</p>'
+	+ '<p><strong>Situa&ccedil;&atilde;o atual/Resposta:</strong> ' + resposta + '</p>'
 	+ '</a></li>';
 	return row;
 }
@@ -23,7 +24,7 @@ $(document).ready(function() {
 
 	$('#addbtn').on('click', function (e) {
 		e.preventDefault();
-		document.location = "criar_pedido.html";
+		document.location = "pedido.html";
 	});
 
 	$('#meuspedidosbtn').on('click', function (e) {
