@@ -6,7 +6,7 @@ function getRow(oracao) {
 	if (!resposta) {
 		resposta = '';
 	}
-	var row = '<li><a href="pedido.html?oracaoId='+oracaoId+'">'
+	var row = '<li><a href="pedido.html?oracaoId='+oracaoId+'" data-ajax="false">'
 	+ '<h2>' + nome + '</h2>'
 	+ '<p><strong>Pedido/Necessidade:</strong> ' + texto + '</p>'
 	+ '<p><strong>Situa&ccedil;&atilde;o atual/Resposta:</strong> ' + resposta + '</p>'
