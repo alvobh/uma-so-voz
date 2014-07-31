@@ -37,6 +37,7 @@ $(document).ready(function() {
 // Fazer o filtro de pedidos por usuario.
 	var Oracao = Parse.Object.extend("Oracao");
 	var query = new Parse.Query(Oracao);
+	query.equalTo("delete",false);
 	query.find({
 		success: function(results) {
 			for (var i = 0; i < results.length; i++) {

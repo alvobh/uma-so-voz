@@ -66,6 +66,8 @@ $(document).ready(function() {
 		});
 
 
+
+
 	$('#respostabtn').on('click', function (e) {
 		e.preventDefault();
 
@@ -80,6 +82,35 @@ $(document).ready(function() {
 			oracao.set("texto", pedido);
 			oracao.set("user", user);
 			oracao.set("resposta", resposta);
+			oracao.save(null, {
+			  success: function(oracao) {
+			    // Execute any logic that should take place after the object is saved.
+			    //alert('Pedido fechado! ');
+			    document.location = 'home.html';
+			  },
+			  error: function(oracao, error) {
+			    // Execute any logic that should take place if the save fails.
+			    // error is a Parse.Error with an error code and description.
+			    alert('Erro ao criar o pedido: ' + error.message);
+			  }
+			});
+	});
+
+	$('#deletebtn').on('click', function (e) {
+		e.preventDefault();
+
+		
+		var pedido = $("#pedido").val();
+		var nome = $("#nome").val();
+		var resposta = $("#resposta").val();
+		
+		var oracao = new PedidoOracao();
+			oracao.id = oracaoId;
+			oracao.set("nome", nome);
+			oracao.set("texto", pedido);
+			oracao.set("user", user);
+			oracao.set("resposta", resposta);
+			oracao.set("delete", true);
 			oracao.save(null, {
 			  success: function(oracao) {
 			    // Execute any logic that should take place after the object is saved.

@@ -29,6 +29,7 @@ $(document).ready(function() {
 	var Oracao = Parse.Object.extend("Oracao");
 	var query = new Parse.Query(Oracao);
 	query.equalTo("user", user);
+	query.equalTo("delete",false);
 
 	query.find({
 		success: function(results) {
