@@ -2,6 +2,7 @@ Para instalar as dependências
 =====================
 
 sudo npm install -g ionic cordova gulp
+
 npm install
 gulp install
 
