@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/jquery.mobile-1.4.2.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/parse.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
+</head>
+
+<body>
+
+<div data-role="page" id="home">
+
+	<div data-role="header">
+		<h1>App Oração</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+	<a href="#" id="addbtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Adicionar</a>
+		<a href="#" id="meuspedidosbtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Meus Pedidos</a>
+		<h3>Orações</h3>
+		<ul id="oracoes" data-role="listview" data-inset="true">
+		</ul>
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+			<a href="#" id="logoutbtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-arrow-d ui-btn-b">SAIR</a>
+		</div>
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+</body>
+</html>

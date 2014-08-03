@@ -1,0 +1,29 @@
+# files
+*.log
+*.tmp
+*.tmp.*
+log.txt
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+._*
+
+# base
+node_modules/
+www/vendor
+www/assets/css
+.sass-cache
+
+# Android
+local.properties
+bin/
+gen/
+ant-gen/
+ant-build/
+platforms/android/assets/www
+platforms/android/res/xml/config.xml
+ 
+# iOS
+build/
+platforms/ios/www
+platforms/ios/.staging

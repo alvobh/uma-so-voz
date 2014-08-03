@@ -1,33 +1,23 @@
-apporacao
-=========
+Para instalar as dependências
+=====================
 
-App Oração de Alvo da Mocidade
+sudo npm install -g ionic cordova gulp
+npm install
+gulp install
 
-Criação da aplicação:
+Para testar no browser
+=====================
 
-$ cordova create apporacao br.alvo.apporacao AppOracao
+gulp watch
+ionic serve
 
-Comando para adicionar a plataforma android (Deve ser executado dentro do diretório da aplicação: apporacao):
+Para testar no celular
+=====================
 
-$ cordova platform add android
+ionic build android
+ionic run android
 
-Comando para construir a aplicação (Deve ser executado dentro do diretório da aplicação: apporacao):
+Qualquer dúvida
+=====================
 
-$ cordova build
-
-Comando para emular a aplicação no android (Deve ser executado dentro do diretório da aplicação: apporacao):
-
-$ cordova emulate android
-
-
-=================
-Links importantes
-=================
-
-PhoneGap
-http://phonegap.com/
-http://docs.phonegap.com/en/edge/guide_platforms_index.md.html
-
-JQueryMobile
-http://jquerymobile.com/
-http://demos.jquerymobile.com/1.4.3/
+ionic --help
