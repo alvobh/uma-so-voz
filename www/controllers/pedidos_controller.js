@@ -1,11 +1,13 @@
 define(['application', '../services/pedido'], function(app) {
 
-  var list = function($scope, $state, $ionicSideMenuDelegate, Pedido) {
+  app
+
+  .controller('PedidosIndex', function($scope, $view, $state, $ionicSideMenuDelegate, Pedido) {
+
+    $scope.filter = $state.current.name.split('.')[1];
 
     $scope.refresh = function() {
-      var filter = $state.current.name.split('.')[1];
-        console.log("====" + filter);
-      Pedido[filter](function(pedidos) {
+      Pedido[$scope.filter](function(pedidos) {
         $scope.pedidos = pedidos;
         $scope.$apply();
       });
@@ -23,16 +25,11 @@ define(['application', '../services/pedido'], function(app) {
         }
       });
     }
-
     $scope.refresh();
-  }
-
-  app.controller('PedidosIndex', list)
-  .controller('PedidosOpened', list)
-  .controller('PedidosClosed', list)
+  })
 
   .controller('PedidosShow', function($scope, $stateParams, Pedido) {
-    console.log($stateParams.id);
+    $scope.filter = $stateParams.filter;
     Pedido.get($stateParams.id, function(pedido) {
       $scope.pedido = pedido;
       $scope.$apply();

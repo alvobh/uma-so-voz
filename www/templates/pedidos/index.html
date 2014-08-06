@@ -16,7 +16,7 @@
 
       <ion-list class="inset-list">
 
-        <ion-item ng-repeat="pedido in pedidos" ng-href="#/pedidos/show/{{pedido.id}}" class="item">
+        <ion-item ng-repeat="pedido in pedidos" ng-href="#/pedidos/{{filter}}/{{pedido.id}}" class="item">
             <h2>{{ pedido.get('nome') }}</h2>
             <p class="item-text-wrap">{{ pedido.get('texto') }}</p>
         </ion-item>

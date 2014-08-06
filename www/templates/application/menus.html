@@ -1,0 +1,53 @@
+<ion-side-menus>
+
+  <!-- Center content -->
+  <ion-side-menu-content ng-controller="ContentController">
+    <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
+        Back
+      </ion-nav-back-button>
+
+      <h1 class="title">#umasóvoz</h1>
+
+      <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon icon ion-compose"></button>
+      </ion-nav-buttons>
+
+    </ion-nav-bar>
+
+    <ion-nav-view></ion-nav-view>
+  </ion-side-menu-content>
+
+
+  <ion-side-menu side="left">
+    <ion-header-bar class="bar-dark">
+      <h1 class="title">Menu</h1>
+    </ion-header-bar>
+
+    <ion-content scroll="false">
+      <ul class="list">
+        <li class="item-divider">#umasóvoz</li>
+        <li class="item">Pedidos</li>
+        <li class="item">Respostas</li>
+        <li class="item">Lista de Oração</li>
+        <li class="item">Reflexão do Dia</li>
+        <li class="item-divider">Minha Conta</li>
+        <li class="item">Preferências</li>
+        <li class="item">Meus Pedidos</li>
+        <li class="item">Sair</li>
+      </ul>
+    </ion-content>
+  </ion-side-menu>
+
+
+  <ion-side-menu side="right">
+    <ion-header-bar class="bar-dark">
+      <h1 class="title">Novo Pedido</h1>
+    </ion-header-bar>
+
+    <ion-content scroll="false">
+      <ng-include src="'templates/pedidos/form.html'"></ng-include>
+    </ion-content>
+  </ion-side-menu>
+
+</ion-side-menus>

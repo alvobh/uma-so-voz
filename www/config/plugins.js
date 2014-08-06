@@ -1,6 +1,6 @@
 define([], function() {
 
-  return function($ionicPlatform) {
+  return function($ionicPlatform, $rootScope) {
 
     $ionicPlatform.ready(function() {
 
@@ -14,6 +14,10 @@ define([], function() {
         StatusBar.styleDefault();
       }
 
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+      $rootScope.$previous = from;
     });
 
   }
