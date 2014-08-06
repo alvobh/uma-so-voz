@@ -14,7 +14,7 @@
       <ion-side-menu-content ng-controller="ContentController">
 
         <ion-nav-bar class="bar-positive nav-title-slide-ios7">
-          <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back button-clear">
+          <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
             Back
           </ion-nav-back-button>
 
@@ -23,6 +23,7 @@
           <ion-nav-buttons side="right">
             <button menu-toggle="right" class="button button-icon icon ion-compose"></button>
           </ion-nav-buttons>
+
         </ion-nav-bar>
 
         <ion-nav-view></ion-nav-view>
@@ -57,6 +58,7 @@
         </ion-header-bar>
 
         <ion-content scroll="false">
+          <ng-include src="'templates/pedidos/form.html'"></ng-include>
         </ion-content>
 
       </ion-side-menu>

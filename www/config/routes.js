@@ -19,35 +19,29 @@ define([
       .state('pedidos.all', {
         url: '/all',
         templateUrl: 'templates/pedidos/index.html',
-        controller:  'PedidosAll'
-      })
-
-      .state('pedidos.mine', {
-        url: '/mine',
-        templateUrl: 'templates/pedidos/index.html',
-        controller:  'PedidosMine'
+        controller:  'PedidosIndex'
       })
 
       .state('pedidos.opened', {
-        url: '/mine',
+        url: '/opened',
         templateUrl: 'templates/pedidos/index.html',
         controller:  'PedidosOpened'
       })
 
       .state('pedidos.closed', {
-        url: '/mine',
+        url: '/closed',
         templateUrl: 'templates/pedidos/index.html',
-        controller:  'PedidosOpened'
+        controller:  'PedidosClosed'
       })
 
       .state('pedidos.show', {
-        url: '/:id',
+        url: '/show/:id',
         templateUrl: 'templates/pedidos/show.html',
         controller:  'PedidosShow'
       })
 
 
-    $urlRouterProvider.otherwise('/pedidos/all');
+    $urlRouterProvider.otherwise('/pedidos/error');
   
   }); 
 

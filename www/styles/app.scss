@@ -2,6 +2,10 @@
 
 @import "ionic.app";
 
-h1 {
-  color: red;
+.details {
+  float: right;
+  margin-top: -12px;
+  @extend .padding-right;
+  color: #666;
+  span { color: black; }
 }

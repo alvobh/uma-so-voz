@@ -1,50 +1,17 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="css/jquery.mobile-1.4.2.min.css" rel="stylesheet">
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
-<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-<script src="js/parse.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/pedido.js"></script>
-</head>
+<ion-view>
+	
+	<ion-content>
 
-<body>
-<div data-role="page" id="divpedido">
-
-	<div data-role="header">
-		<a href="#" id="backbtn" data-icon="back" data-iconpos="notext">Voltar</a> 
-		<h1>Pedido de Oracao</h1>
-	</div><!-- /header -->
-
-	<div role="main" class="ui-content">
-		<form id="formPedido" accept-charset="utf-8">
-			<div style="">
-				<label for="nome">Email:</label>
-				<input type="text" name="nome" id="nome" />
-				<br />
-				<label for="pedido">Pedido:</label>
-				<textarea id="pedido" name="pedido" rows="7" cols="40"></textarea>
-				<br />
-				<label for="resposta">Resposta:</label>
-				<textarea id="resposta" name="resposta" rows="7" cols="40"></textarea>
-				<br />
-			</div>
-		</form>
-	</div><!-- /content -->
-
-	<div data-role="footer">
-		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-		    <a href="#" id="pedidobtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Fazer Pedido</a>
-		    <a href="#" id="respostabtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Fechar Pedido</a>
-
-		    <a href="#" id="deletebtn" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-minus ui-btn-b">Remover Pedido</a>
+		<div class="card">
+		  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
 		</div>
-	</div><!-- /footer -->
 
-</div><!-- /page -->
+		<div class="details">
+			por <span class="author">{{ pedido.get('nome').split(' ').slice(0, 2).join(' ') }}</span>,
+			em <span class="author">{{ pedido.createdAt | date:'dd/MM/yyyy'  }}</span>
+			às <span class="author">{{ pedido.createdAt | date:'HH:mm'  }}</span>
+		</div>
+		
+	</ion-content>
 
-</body>
-</html>
+</ion-view>

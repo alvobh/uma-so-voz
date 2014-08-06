@@ -6,14 +6,24 @@
 
 	<ion-content>
 
-		<ion-list class="inset-list">
+    <div class="card" ng-class="{ hide: !alert }">
+      <div class="item item-text-wrap" ng-bind="alert"></div>
+    </div>
 
-			  <ion-item ng-repeat="pedido in pedidos" ng-href="/#/pedidos/{{pedido.get('nome')}}" class="item">
-				    <h2>{{ pedido.get('nome') }}</h2>
-				    <p class="item-text-wrap">{{ pedido.get('texto') }}</p>
-			  </ion-item>
+    <h1 class="padding">{{ title }}</h1>
 
-		</ion-list> 
+    <ion-scroll>
+
+      <ion-list class="inset-list">
+
+        <ion-item ng-repeat="pedido in pedidos" ng-href="#/pedidos/show/{{pedido.id}}" class="item">
+            <h2>{{ pedido.get('nome') }}</h2>
+            <p class="item-text-wrap">{{ pedido.get('texto') }}</p>
+        </ion-item>
+
+      </ion-list> 
+    </ion-scroll>
+
 
 	</ion-content>
 	
