@@ -6,7 +6,7 @@ define([
 
 ], function(app) { 
 
-  return app.config(function($stateProvider, $urlRouterProvider) {
+  app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
 

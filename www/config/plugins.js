@@ -1,6 +1,6 @@
-define([], function() {
+define(['application'], function(app) {
 
-  return function($ionicPlatform, $rootScope) {
+  app.run(function($ionicPlatform, $rootScope) {
 
     $ionicPlatform.ready(function() {
 
@@ -16,10 +16,6 @@ define([], function() {
 
     });
 
-    $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
-      $rootScope.$previous = from;
-    });
-
-  }
+  });
 
 });

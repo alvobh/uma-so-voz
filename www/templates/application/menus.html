@@ -7,7 +7,14 @@
         Back
       </ion-nav-back-button>
 
-      <h1 class="title">#umasóvoz</h1>
+      <div class="buttons left-buttons"></div>
+      <div class="buttons left-buttons">
+        <i class="button-icon icon ion-loading-c loading" ng-show="loading"></i>           
+      </div>
+  
+      <h1 class="title">
+        #umasóvoz
+      </h1>
 
       <ion-nav-buttons side="right">
         <button menu-toggle="right" class="button button-icon icon ion-compose"></button>
@@ -16,6 +23,7 @@
     </ion-nav-bar>
 
     <ion-nav-view></ion-nav-view>
+
   </ion-side-menu-content>
 
 
@@ -40,7 +48,7 @@
   </ion-side-menu>
 
 
-  <ion-side-menu side="right">
+  <ion-side-menu side="right" ng-controller="PedidosNew">
     <ion-header-bar class="bar-dark">
       <h1 class="title">Novo Pedido</h1>
     </ion-header-bar>

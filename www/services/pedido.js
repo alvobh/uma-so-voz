@@ -1,55 +1,42 @@
-define(['application', '../services/parse'], function(app) {
-  
-  var Pedido =  function() {
+define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
 
-    var dao   = Parse.Object.extend("Oracao");
-    var query = new Parse.Query(dao);
+  var Pedido = Parse.Object.extend("Oracao", {
 
-    dao.all = function(callback) {
-      query.descending('updatedAt').find({ success: callback });
-      query = new Parse.Query(dao);
+    prettyName: function() {
+      return this.get('nome').split(' ').slice(0, 2).join(' ');
+    } 
+
+  });
+
+  new QueryWrapper(Pedido, {
+
+    all: function() {
+      // do nothing
+    },
+
+    paginate: function(qtd, page) {
+      this.limit(qtd).skip(page*qtd);
+    },
+
+    by_user: function() {
+      this.equalTo("user",   user);
+    },
+
+    not_deleted: function() {
+      this.equalTo("delete", false);
+    },
+
+    opened: function() {
+      this.equalTo("resposta", null);
+    },
+
+    closed: function() {
+      this.notEqualTo("resposta", null);
     }
 
-    dao.get = function(id, callback) {
-      query.get(id, { success: callback, error: callback });
-      query = new Parse.Query(dao);
-    }
-
-    // getters
-
-    var getters = {};
-
-    getters.by_user = function() {
-      query.equalTo("user",   user);
-    }
-
-    getters.not_deleted = function() {
-      query.equalTo("delete", false);
-    }
-
-    getters.opened = function() {
-      query.equalTo("resposta", null);
-    }
-
-    getters.closed = function() {
-      query.notEqualTo("resposta", null);
-    }
-
-    for(var getter in getters) { 
-      dao[getter] = function() {
-        var query = getter;
-        return function(callback) {
-          getters[query]();
-          if(callback) dao.all(callback)
-          else return dao;
-        }
-      }();
-    }
-
-    return dao;
-  }
-
-  app.factory('Pedido', Pedido);
-  return Pedido;
+  });
+  app.factory('Pedido', function() {
+    return Pedido;
+  });
 
 })

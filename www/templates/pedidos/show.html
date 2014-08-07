@@ -1,13 +1,13 @@
 <ion-view>
 	
-	<ion-content>
+	<ion-content class="has-header">
 
 		<div class="card">
 		  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
 		</div>
 
 		<div class="details">
-			por <span class="author">{{ pedido.get('nome').split(' ').slice(0, 2).join(' ') }}</span>,
+			por <span class="author">{{ pedido.prettyName() }}</span>,
 			em <span class="author">{{ pedido.createdAt | date:'dd/MM/yyyy'  }}</span>
 			às <span class="author">{{ pedido.createdAt | date:'HH:mm'  }}</span>
 		</div>

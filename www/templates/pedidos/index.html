@@ -12,18 +12,16 @@
 
     <h1 class="padding">{{ title }}</h1>
 
-    <ion-scroll>
+    <ion-list class="inset-list">
 
-      <ion-list class="inset-list">
+      <ion-item ng-repeat="pedido in pedidos track by $index" ng-href="#/pedidos/{{filter}}/{{pedido.id}}" class="item">
+        <h2>{{ pedido.get('nome') }}</h2>
+        <p class="item-text-wrap">{{ pedido.get('texto') }}</p>
+      </ion-item>
 
-        <ion-item ng-repeat="pedido in pedidos" ng-href="#/pedidos/{{filter}}/{{pedido.id}}" class="item">
-            <h2>{{ pedido.get('nome') }}</h2>
-            <p class="item-text-wrap">{{ pedido.get('texto') }}</p>
-        </ion-item>
+    </ion-list> 
 
-      </ion-list> 
-    </ion-scroll>
-
+    <ion-infinite-scroll on-infinite="load_pedidos(page+1)" distance="1%"></ion-infinite-scroll>
 
 	</ion-content>
 	
