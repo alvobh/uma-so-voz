@@ -1,6 +1,4 @@
-var LocalCache = function(){
-
-	// storage
+require([], function() {
 
 	var Storage = function(){
 
@@ -17,14 +15,12 @@ var LocalCache = function(){
 			},
 
 			save: function(scope, action, valor) {
-				console.log('Cache: ' + scope + ':' + action);
 				var key  = _key(scope, action);
 				var json = JSON.stringify(valor)
 				localStorage.setItem(key, json);
 			},
 
 			clear: function() {
-				console.log('Cleared storage');
 				localStorage.clear();
 			}
 
@@ -32,8 +28,6 @@ var LocalCache = function(){
 
 	}();
 
-
-	// cache
 
 	var Cache  = function(){
 
@@ -52,7 +46,6 @@ var LocalCache = function(){
 			},
 
 			clear: function() {
-				console.log('Cleared cache');
 				cache = {};
 			}
 		}
@@ -60,33 +53,36 @@ var LocalCache = function(){
 	}();
 
 
-	// api
+	var LocalCache = function(){
 
-	return {
+		return {
 
-		get: function(scope, action, callback) {
-			var dado = Cache.get(scope, action);
-			if(dado === undefined) {
-				dado = Storage.get(scope, action);
-				Cache.save(scope, action, dado);
+			get: function(scope, action, callback) {
+				var dado = Cache.get(scope, action);
+				if(dado === undefined) {
+					dado = Storage.get(scope, action);
+					Cache.save(scope, action, dado);
+				}
+				if(callback) callback(dado);
+				else return dado;
+			},
+
+			save: function(scope, action, object) {
+				Storage.save(scope, action, object);
+				Cache.save(scope, action, object);
+			},
+
+			version: function(number) {
+				if(Storage.get('cache', 'version') !== number) {
+					Storage.clear();
+					Cache.clear();
+					Storage.save('cache', 'version', number);
+				}				
 			}
-			if(callback) callback(dado);
-			else return dado;
-		},
 
-		save: function(scope, action, object) {
-			Storage.save(scope, action, object);
-			Cache.save(scope, action, object);
-		},
-
-		version: function(number) {
-			if(Storage.get('app', 'version') !== number) {
-				Storage.clear();
-				Cache.clear();
-				Storage.save('app', 'version', number);
-			}				
 		}
 
-	}
+	}();
 
-}();
+	return LocalCache;
+})

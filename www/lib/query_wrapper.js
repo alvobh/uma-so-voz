@@ -1,43 +1,51 @@
 define(['../services/parse'], function() {
 
-  var QueryWrapper = function(dao, getters) {
+  var QueryWrapper = function(dao) {
 
-    var that = this;
+    this.query = new Parse.Query(dao);
 
-    var callback = function(arguments) {
-      return arguments[arguments.length-1];
+    this.get = function(id, callback) {
+      this.query.get(id, { success: callback });
     }
 
-    var has_callback = function(arguments) {
-      return arguments.length && typeof callback(arguments) == 'function';
+    this.all = function(callback) {
+      this.query.find({ success: callback });
     }
+    
+  }
 
-    // wrappers
+  QueryWrapper.wrap = function(dao, getters) {
 
     var dao_wrapper = function(getter) {
       return function() {
-        that.query = new Parse.Query(dao);
-        return query_wrapper(getter).apply(that, arguments);
+        var query = new QueryWrapper(dao);
+        wrap(query, query_wrapper);
+        return query[getter].apply(query, arguments);
       }     
     }
 
     var query_wrapper = function(getter) {
       return function() {
-        getters[getter].apply(that.query, arguments);
-        if(has_callback(arguments)) that.query.find({ success: callback(arguments) });
-        else return that;
+        var cb = callback(arguments);
+        getters[getter].apply(this.query, arguments);
+        if(cb) this.all(cb);
+        else return this;
       }
     }
 
-    for(var getter in getters) {
-      dao[getter]  = dao_wrapper(getter);
-      this[getter] = query_wrapper(getter);
+    var wrap = function(object, wrapper) {
+      for(var getter in getters)
+        object[getter] = wrapper(getter);
     }
 
-    // high level
+    wrap(dao, dao_wrapper);
 
-    this.get = function(id, callback) {
-      this.query.get(id, { success: callback });
+
+    // callback identification
+
+    var callback = function(arguments) {
+      if(arguments.length && typeof arguments[arguments.length-1] == 'function')
+        return arguments[arguments.length-1];
     }
 
   }

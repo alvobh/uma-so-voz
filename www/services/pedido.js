@@ -8,11 +8,7 @@ define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
 
   });
 
-  new QueryWrapper(Pedido, {
-
-    all: function() {
-      // do nothing
-    },
+  QueryWrapper.wrap(Pedido, {
 
     paginate: function(qtd, page) {
       this.limit(qtd).skip(page*qtd);
@@ -35,6 +31,7 @@ define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
     }
 
   });
+
   app.factory('Pedido', function() {
     return Pedido;
   });
