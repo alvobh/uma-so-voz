@@ -18,30 +18,31 @@ define(['application', '../services/pedido'], function(app) {
 
   })
 
-  .controller('PedidosIndex', function($scope, $rootScope, $state, Pedido) {
+  .controller('PedidosIndex', function($scope, $rootScope, $stateParams, Pedido) {
 
     $scope.pedidos = [];
     $scope.qtd     = 10;
     $scope.page    = 0;
-    $scope.filter  = $state.current.name.split('.')[1];
 
-    $scope.remove_alert = function() {      
-      $scope.alert = '';
-      $scope.$apply();
+    $scope.filter  = { }
+    if($stateParams.filter != 'all') $scope.filter.status = $stateParams.filter;
+
+    $scope.filterCheck = function(item) {
+      return !$scope.filter.status || $scope.filter.status == item.status();
     }
 
     $rootScope.$on('pedidos.new', function(event, pedido) {
-      $scope.alert   = 'Pedido criado com sucesso!';
+      // $scope.alert   = 'Pedido criado com sucesso!'; TODO criar alerta com phonegap
+      // setTimeout($scope.remove_alert, 3000);
       $scope.pedidos = [pedido].concat($scope.pedidos);
       $scope.$apply();
-      setTimeout($scope.remove_alert, 3000);
     })
 
     $scope.load_pedidos = function(page) {
-      $rootScope.loading = true;
-      Pedido.paginate($scope.qtd, page)[$scope.filter](function(pedidos) {
+      $rootScope.loading = true;      // [$scope.filter]
+      Pedido.paginate($scope.qtd, page).all(function(pedidos) {
         $rootScope.loading = false;
-        $scope.page    = page + 1;
+        $scope.page    = page;
         $scope.pedidos = $scope.pedidos.concat(pedidos);
         $scope.$broadcast('scroll.infiniteScrollComplete');
         $scope.$apply();
@@ -52,9 +53,10 @@ define(['application', '../services/pedido'], function(app) {
     
   })
 
-  .controller('PedidosShow', function($scope, $rootScope, $stateParams) {
+  .controller('PedidosShow', function($scope, $rootScope, $stateParams, Pedido) {
     $scope.filter = $stateParams.filter;
     $rootScope.loading = true;
+    window.Pedido = Pedido;
     Pedido.get($stateParams.id, function(pedido) {
       $scope.pedido = pedido;
       $rootScope.loading = false;

@@ -19,7 +19,7 @@ define(['../services/parse'], function() {
     var dao_wrapper = function(getter) {
       return function() {
         var query = new QueryWrapper(dao);
-        wrap(query, query_wrapper);
+        wrap(query, query_wrapper, getters);
         return query[getter].apply(query, arguments);
       }     
     }
@@ -28,18 +28,20 @@ define(['../services/parse'], function() {
       return function() {
         var cb = callback(arguments);
         getters[getter].apply(this.query, arguments);
-        if(cb) this.all(cb);
-        else return this;
-      }
+        if(getter != 'all') {
+          if(cb) this.all.apply(this, arguments);
+          else return this;
+        }
+      }   
     }
 
-    var wrap = function(object, wrapper) {
-      for(var getter in getters)
+    var wrap = function(object, wrapper, source) {
+      for(var getter in source)
         object[getter] = wrapper(getter);
     }
 
-    wrap(dao, dao_wrapper);
-
+    wrap(dao, dao_wrapper, getters);
+    wrap(dao, dao_wrapper, new QueryWrapper(dao))
 
     // callback identification
 

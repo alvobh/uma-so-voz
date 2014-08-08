@@ -4,17 +4,20 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
 
-	<ion-content>
-
-    <div class="card" ng-class="{ hide: !alert }">
-      <div class="item item-text-wrap" ng-bind="alert"></div>
+  <div class="has-header content padding">
+    <div class="button-bar bar-stable padding">
+      <a class="button icon icon ion-ios7-heart"   ng-class="{ active: filter.status == 'opened' }" ng-click="filter.status = 'opened'"></a>
+      <a class="button icon ion-checkmark-circled" ng-class="{ active: filter.status == 'closed' }" ng-click="filter.status = 'closed'"></a>
     </div>
+  </div>
 
-    <h1 class="padding">{{ title }}</h1>
+  <ion-content class="padding listagem">
+
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="load_pedidos(0)"></ion-refresher>
 
     <ion-list class="inset-list">
 
-      <ion-item ng-repeat="pedido in pedidos track by $index" ng-href="#/pedidos/{{filter}}/{{pedido.id}}" class="item">
+      <ion-item ng-repeat="pedido in pedidos | filter:filterCheck" ng-href="#/pedidos/show/{{pedido.id}}" class="item">
         <h2>{{ pedido.get('nome') }}</h2>
         <p class="item-text-wrap">{{ pedido.get('texto') }}</p>
       </ion-item>
@@ -24,5 +27,9 @@
     <ion-infinite-scroll on-infinite="load_pedidos(page+1)" distance="1%"></ion-infinite-scroll>
 
 	</ion-content>
-	
+
 </ion-view>	
+
+
+
+

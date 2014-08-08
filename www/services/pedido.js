@@ -4,11 +4,18 @@ define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
 
     prettyName: function() {
       return this.get('nome').split(' ').slice(0, 2).join(' ');
-    } 
+    },
 
+    status: function() {
+      return this.get('resposta') == null ? 'opened' : 'closed';
+    }
   });
 
   QueryWrapper.wrap(Pedido, {
+
+    all: function(callback) {
+      this.descending('updatedAt').find({ success: callback });
+    },
 
     paginate: function(qtd, page) {
       this.limit(qtd).skip(page*qtd);
