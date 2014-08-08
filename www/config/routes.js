@@ -26,7 +26,7 @@ define([
 
       ;
 
-    $urlRouterProvider.otherwise('/pedidos');
+    $urlRouterProvider.otherwise('/pedidos/all');
   
   }); 
 

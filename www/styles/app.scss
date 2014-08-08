@@ -13,3 +13,9 @@
 .listagem {
   top: 124px;
 }
+
+.button-bar .icon {
+  border: 1px solid #ddd;
+  &:first-child { margin-right: -1px; } 
+  &.active, &:active { background: #aaa; margin-right: 0px; }
+}

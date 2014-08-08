@@ -5,15 +5,15 @@
   </ion-nav-buttons>
 
   <div class="has-header content padding">
-    <div class="button-bar bar-stable padding">
-      <a class="button icon icon ion-ios7-heart"   ng-class="{ active: filter.check('opened') }" ng-click="filter.update('opened')"></a>
+    <div class="button-bar bar-dark padding">
+      <a class="button icon ion-ios7-heart"   ng-class="{ active: filter.check('opened') }" ng-click="filter.update('opened')"></a>
       <a class="button icon ion-checkmark-circled" ng-class="{ active: filter.check('closed') }" ng-click="filter.update('closed')"></a>
     </div>
   </div>
 
   <ion-content class="padding listagem">
 
-    <ion-refresher pulling-text="Pull to refresh..." on-refresh="load_pedidos(0)"></ion-refresher>
+    <ion-refresher pulling-text="Puxe para atualizar" on-refresh="load_pedidos(0)"></ion-refresher>
 
     <ion-list class="inset-list">
 
