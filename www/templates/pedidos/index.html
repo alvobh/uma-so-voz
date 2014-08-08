@@ -6,8 +6,8 @@
 
   <div class="has-header content padding">
     <div class="button-bar bar-stable padding">
-      <a class="button icon icon ion-ios7-heart"   ng-class="{ active: filter.status == 'opened' }" ng-click="filter.status = 'opened'"></a>
-      <a class="button icon ion-checkmark-circled" ng-class="{ active: filter.status == 'closed' }" ng-click="filter.status = 'closed'"></a>
+      <a class="button icon icon ion-ios7-heart"   ng-class="{ active: filter.check('opened') }" ng-click="filter.update('opened')"></a>
+      <a class="button icon ion-checkmark-circled" ng-class="{ active: filter.check('closed') }" ng-click="filter.update('closed')"></a>
     </div>
   </div>
 
@@ -17,7 +17,7 @@
 
     <ion-list class="inset-list">
 
-      <ion-item ng-repeat="pedido in pedidos | filter:filterCheck" ng-href="#/pedidos/show/{{pedido.id}}" class="item">
+      <ion-item ng-repeat="pedido in pedidos | filter:filter.item" ng-href="#/pedidos/show/{{pedido.id}}" class="item">
         <h2>{{ pedido.get('nome') }}</h2>
         <p class="item-text-wrap">{{ pedido.get('texto') }}</p>
       </ion-item>

@@ -24,12 +24,22 @@ define(['application', '../services/pedido'], function(app) {
     $scope.qtd     = 10;
     $scope.page    = 0;
 
-    $scope.filter  = { }
-    if($stateParams.filter != 'all') $scope.filter.status = $stateParams.filter;
+    $scope.filter  = new function() {
+      var status = $stateParams.filter, that = this;
 
-    $scope.filterCheck = function(item) {
-      return !$scope.filter.status || $scope.filter.status == item.status();
-    }
+      this.check = function(value) {
+        return status == value;
+      }
+
+      this.item = function(item) {
+        return that.check(undefined) || that.check('all') || that.check(item.status());
+      }
+
+      this.update = function(value) {
+        if(that.check(value)) status = undefined;
+        else status = value;
+      }
+    }();
 
     $rootScope.$on('pedidos.new', function(event, pedido) {
       // $scope.alert   = 'Pedido criado com sucesso!'; TODO criar alerta com phonegap
