@@ -31,6 +31,10 @@ define(['application', 'libs/query_wrapper', 'services/atualizacao'], function(a
       this.descending('updatedAt').find({ success: callback });
     },
 
+    my:function(meus){
+      this.equalTo("id",meus);
+    },
+
     paginate: function(qtd, page) {
       this.limit(qtd).skip(page*qtd);
     },

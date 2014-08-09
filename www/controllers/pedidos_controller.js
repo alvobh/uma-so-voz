@@ -2,7 +2,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
 
   app
 
-  .controller('PedidosNew', function($scope, $rootScope, $ionicSideMenuDelegate) {
+  .controller('PedidosNew', function($scope, $rootScope, $ionicSideMenuDelegate, Pedido) {
 
     $scope.pedido = {};
     $scope.cria = function(pedido) {
@@ -11,11 +11,33 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
         success: function() {
           $scope.pedido  = {};
           $rootScope.$emit('pedidos.new', p);
+          saveLocal(p);
           $ionicSideMenuDelegate.toggleRight();
+
         }
       });
-    }
 
+      function saveLocal(p){
+        var pedido = LocalCache.get('pedido','meus');
+          if(pedido === null){
+            pedido = new Array();
+          }
+          pedido.push(p.id);
+          LocalCache.save('pedido','meus',pedido);
+      }   
+    }
+    $scope.removePedido = function(pedido) {
+      var p = new Pedido(pedido);
+      p.save(null, {
+        success: function() {
+          $scope.pedido  = {};
+          $rootScope.$emit('pedidos.new', p);
+          saveLocal(p);
+          $ionicSideMenuDelegate.toggleRight();
+
+        }
+      });   
+    }
   })
 
   .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicPopover, Pedido) {
@@ -46,6 +68,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
       // $scope.alert   = 'Pedido criado com sucesso!'; TODO criar alerta com phonegap
       // setTimeout($scope.remove_alert, 3000);
       $scope.pedidos = [pedido].concat($scope.pedidos);
+
       $scope.$apply();
     });
 
@@ -103,12 +126,17 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
     
     Pedido.get($stateParams.id, function(pedido) {
       $scope.pedido = pedido;
+      $scope.pedido.meu = verificaMeusPedidos(pedido);
       $scope.pedido.getAtualizacoes($scope.loadAtualizacoes);
       $scope.$apply();
-    });
+    })
 
     $scope.resetAtualizacao();
   });
-  
-});
-  
+
+  function verificaMeusPedidos(pedido){
+    var meuPedido = LocalCache.get('pedido','meus').indexOf(pedido.id);
+    return meuPedido != -1;
+  }
+
+});  
