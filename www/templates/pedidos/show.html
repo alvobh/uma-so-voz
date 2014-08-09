@@ -11,17 +11,17 @@
 
 		<div class="comentarios shadow padding-bottom content">
 
-			<div class="card">
-			  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
-			</div>
+			<h4 class="padding-top">Atualizações</h4>
 
-			<div class="card">
-			  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
-			</div>
+			<div ng-repeat="atualizacao in pedido.atualizacoes()">
+				<div class="card">
+				  <div class="item item-text-wrap">{{ atualizacao.get('texto') }}</div>
+				</div>
 
-			<div class="card">
-			  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
-			</div> 
+				<div class="details">
+					<span class="date">{{ pedido.createdAt | date:'dd/MM HH:mm'  }}</span>
+				</div>
+			</div>
 
 			<div class="card new ">
 			 	<div class="item item-icon-left">
@@ -30,10 +30,10 @@
 			 	</div>
 			</div> 
 
-
+			
+			<div class="noshadow"></div>
 		</div>
 
-		<div class="noshadow"></div>
 		
 	</ion-content>
 
