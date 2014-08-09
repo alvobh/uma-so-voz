@@ -29,7 +29,13 @@
 			 		Nova atualização
 			 	</div>
 			</div> 
-
+			<div class="card new" ng-hide={{pedido.get('meu')}}>
+				<div class="item item-icon-left">
+			 		<i class="icon ion-home ion-ios7-minus-outline" ng-href="#/pedidos/delete/{{pedido.id}}">
+			 			Remover pedido
+			 		</i>
+			 	</div>
+			</div>
 
 		</div>
 

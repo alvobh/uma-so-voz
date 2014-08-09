@@ -11,16 +11,33 @@ define(['application', '../services/pedido','../lib/local_cache'], function(app,
         success: function() {
           $scope.pedido  = {};
           $rootScope.$emit('pedidos.new', p);
-          
-          var pedido = LocalCache.get('pedido','meus');
-          console.log(pedido);
-
+          saveLocal(p);
           $ionicSideMenuDelegate.toggleRight();
 
         }
       });
-    }
 
+      function saveLocal(p){
+        var pedido = LocalCache.get('pedido','meus');
+          if(pedido === null){
+            pedido = new Array();
+          }
+          pedido.push(p.id);
+          LocalCache.save('pedido','meus',pedido);
+      }   
+    }
+    $scope.removePedido = function(pedido) {
+      var p = new Pedido(pedido);
+      p.save(null, {
+        success: function() {
+          $scope.pedido  = {};
+          $rootScope.$emit('pedidos.new', p);
+          saveLocal(p);
+          $ionicSideMenuDelegate.toggleRight();
+
+        }
+      });   
+    }
   })
 
   .controller('PedidosIndex', function($scope, $rootScope, $stateParams, Pedido) {
@@ -75,8 +92,17 @@ define(['application', '../services/pedido','../lib/local_cache'], function(app,
     window.Pedido = Pedido;
     Pedido.get($stateParams.id, function(pedido) {
       $scope.pedido = pedido;
+      $scope.pedido.meu = verificaMeusPedidos(pedido);
+
       $rootScope.loading = false;
       $scope.$apply();
     })
+
   });
+
+  function verificaMeusPedidos(pedido){
+    var meuPedido = LocalCache.get('pedido','meus').indexOf(pedido.id);
+    return meuPedido != -1;
+  }
+
 });  

@@ -17,6 +17,10 @@ define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
       this.descending('updatedAt').find({ success: callback });
     },
 
+    my:function(meus){
+      this.equalTo("id",meus);
+    },
+
     paginate: function(qtd, page) {
       this.limit(qtd).skip(page*qtd);
     },
