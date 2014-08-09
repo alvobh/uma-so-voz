@@ -1,4 +1,4 @@
-require([], function() {
+define([], function() {
 
 	var Storage = function(){
 
@@ -85,4 +85,5 @@ require([], function() {
 	}();
 
 	return LocalCache;
-})
+
+});

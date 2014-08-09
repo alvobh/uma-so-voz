@@ -1,21 +1,42 @@
 // Include all of Ionic
 
 @import "ionic.app";
+@import "pedidos";
 
-.details {
-  float: right;
-  margin-top: -12px;
-  @extend .padding-right;
-  color: #666;
-  span { color: black; }
+.button-bar {
+  width: 260px;
+  margin: auto;
+
+  .icon {
+    background: #eee;
+    border: 1px solid #ddd;
+
+    &:first-child {
+      margin-right: -1px;
+    } 
+    
+    &.active, &:active {
+      background: #ccc;
+      margin-right: 0px;
+      border: 1px solid #bbb;
+    }
+  }
 }
 
-.listagem {
-  top: 124px;
+.nav-bar {
+  -webkit-box-shadow: 0px 3px 7px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    0px 3px 7px 0px rgba(50, 50, 50, 0.75);
+  box-shadow:         0px 2px 7px 0px rgba(50,50,50,0.75);
 }
 
-.button-bar .icon {
-  border: 1px solid #ddd;
-  &:first-child { margin-right: -1px; } 
-  &.active, &:active { background: #aaa; margin-right: 0px; }
+.noshadow {
+  height: 5px;
+  width: 100%;
+  position: relative;
+  z-index: 101;
+  background: white;
+}
+
+.card.new .item {
+  background: #eee !important;
 }
