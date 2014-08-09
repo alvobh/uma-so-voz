@@ -66,20 +66,32 @@ define(['application', '../lib/local_cache', '../services/pedido'], function(app
   })
 
   .controller('PedidosShow', function($scope, $rootScope, $stateParams, Pedido, Atualizacao) {
-    $scope.atualizacao  = { texto: "" };
     $scope.atualizacoes = [];
     $rootScope.showLoading();
 
+    $scope.resetAtualizacao = function() {
+      $scope.criando_atualizacao = false;
+      $scope.atualizacao         = { texto: null, fecha_pedido: false };
+    }
+
+    $scope.comecaAtualizacao = function() {
+      if(!$scope.criando_atualizacao)
+        $scope.criando_atualizacao = true;
+    }
+
     $scope.addAtualizacao = function(attrs) {
-      $rootScope.showLoading();
-      var a = new Atualizacao(attrs);
-      a.save(null, {
-        success: function(atualizacao) {
-          $rootScope.hideLoading();
-          $scope.pedido.addAtualizacao(atualizacao);
-          $scope.loadAtualizacoes([atualizacao].concat($scope.atualizacoes));
-        }
-      })
+      if(attrs.texto) {
+        $scope.status_atualizacao = 3;
+        $rootScope.showLoading();
+        var a = new Atualizacao(attrs);
+        a.save(null, {
+          success: function(atualizacao) {
+            $scope.resetAtualizacao();
+            $scope.pedido.addAtualizacao(atualizacao);
+            $scope.loadAtualizacoes([atualizacao].concat($scope.atualizacoes));
+          }
+        })
+      }
     }
 
     $scope.loadAtualizacoes = function(atualizacoes) {
@@ -92,7 +104,9 @@ define(['application', '../lib/local_cache', '../services/pedido'], function(app
       $scope.pedido = pedido;
       $scope.pedido.getAtualizacoes($scope.loadAtualizacoes);
       $scope.$apply();
-    })
+    });
+
+    $scope.resetAtualizacao();
   });
   
 });

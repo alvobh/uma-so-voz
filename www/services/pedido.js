@@ -7,7 +7,7 @@ define(['application', '../lib/query_wrapper', '../services/atualizacao'], funct
     },
 
     status: function() {
-      return this.get('resposta') == null ? 'opened' : 'closed';
+      return this.get('fechado') == true ? 'closed' : 'opened';
     },
 
     getAtualizacoes: function(cb) {
@@ -44,11 +44,11 @@ define(['application', '../lib/query_wrapper', '../services/atualizacao'], funct
     },
 
     opened: function() {
-      this.equalTo("resposta", null);
+      this.notEqualTo(fechado, true);
     },
 
     closed: function() {
-      this.notEqualTo("resposta", null);
+      this.equalTo(fechado, false);
     }
 
   });

@@ -9,7 +9,7 @@
 			</div>
 		</div>
 
-		<div class="comentarios shadow padding-bottom content">
+		<div class="comentarios content">
 
 			<h4 class="padding-top">Atualizações</h4>
 
@@ -24,9 +24,9 @@
 			</div>
 
 			<div class="card" ng-class="{ new: !criando_atualizacao }">
-			 	<div class="item item-icon-left" ng-click="criando_atualizacao = !criando_atualizacao">
+			 	<div class="item item-icon-left" ng-click="comecaAtualizacao()">
 
-			 		<i class="icon ion-home ion-ios7-plus-outline"></i>
+			 		<i class="icon ion-home ion-ios7-plus-outline" ng-click="atualizacao.texto ? addAtualizacao(atualizacao) : void(0)"></i>
 			 		<span ng-show="!criando_atualizacao" class="label" >Nova atualização</span>
 
 			 		<div ng-show="criando_atualizacao">
