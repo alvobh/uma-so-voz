@@ -31,7 +31,7 @@
     box-shadow:         0px 1px 7px 0px rgba(50, 50, 50, 0.75);
   }
 
-  .author, .date {
+  .author {
     color: #999;
     text-transform: uppercase;
     font-size: 13px;
@@ -40,13 +40,18 @@
   .date {
     color: #aaa;
     font-size: 12px;
-
   }
-
+  
   .pedido {
     line-height: 1.5em;
     font-size: 20px;
     padding-top: 2px;
+  }
+
+  .comentarios {
+    padding-top: 1px;
+    z-index: 10;
+    position: relative;
   }
 
   h4 {
@@ -57,12 +62,24 @@
     text-transform: uppercase;
     margin-top: 10px;
   }
-
-  .comentarios {
-    padding-top: 1px;
-    z-index: 10;
-    position: relative;
+   
+  .card {
+    clear: both;
   }
 
+  .details {
+    float: right;
+    padding-right: 10px;
+    margin-top: -20px;
+  }
+
+  .item-checkbox {
+    color: #aaa;
+    font-size: 14px;
+    padding-left: 8px;
+    height: 47px;
+    padding-top: 13px;
+    input { float: right; }
+  }
 
 }

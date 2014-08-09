@@ -10,9 +10,8 @@ define(['application', '../lib/query_wrapper', '../services/atualizacao'], funct
       return this.get('resposta') == null ? 'opened' : 'closed';
     },
 
-    atualizacoes: function(cb) {
-      console.log(this.relation("atualizacoes"));
-      return this.relation("atualizacoes").query().find({ success: cb }, { error: cb });
+    getAtualizacoes: function(cb) {
+      this.relation("atualizacoes").query().find({ success: cb }, { error: cb });
     },
 
     addAtualizacao: function(atualizacao) {

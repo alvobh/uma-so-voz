@@ -77,15 +77,20 @@ define(['application', '../lib/local_cache', '../services/pedido'], function(app
         success: function(atualizacao) {
           $rootScope.hideLoading();
           $scope.pedido.addAtualizacao(atualizacao);
-          $scope.atualizacoes = [atualizacao].concat($scope.atualizacoes);
-          $scope.$apply();
+          $scope.loadAtualizacoes([atualizacao].concat($scope.atualizacoes));
         }
       })
     }
+
+    $scope.loadAtualizacoes = function(atualizacoes) {
+      $scope.atualizacoes = atualizacoes;
+      $rootScope.hideLoading();
+      $scope.$apply();
+    }
     
     Pedido.get($stateParams.id, function(pedido) {
-      $scope.pedido      = pedido;
-      $rootScope.loading = false;
+      $scope.pedido = pedido;
+      $scope.pedido.getAtualizacoes($scope.loadAtualizacoes);
       $scope.$apply();
     })
   });
