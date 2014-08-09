@@ -9,20 +9,24 @@
 			</div>
 		</div>
 
-		<div class="comentarios shadow padding-bottom content">
+		<div class="comentarios content">
 
-			<div class="card">
-			  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
+			<h4 class="padding-top">Atualizações</h4>
+
+			<div ng-repeat="atualizacao in atualizacoes">
+				<div class="card">
+				  <div class="item item-text-wrap">{{ atualizacao.get('texto') }}</div>
+				</div>
+
+				<div class="details">
+					<span class="date">{{ pedido.createdAt | date:'dd/MM HH:mm'  }}</span>
+				</div>
 			</div>
 
-			<div class="card">
-			  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
-			</div>
+			<div class="card" ng-class="{ new: !criando_atualizacao }">
+			 	<div class="item item-icon-left" ng-click="comecaAtualizacao()">
 
-			<div class="card">
-			  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
-			</div> 
-
+<<<<<<< HEAD
 			<div class="card new ">
 			 	<div class="item item-icon-left">
 			 		<i class="icon ion-home ion-ios7-plus-outline"></i>
@@ -36,10 +40,28 @@
 			 		</i>
 			 	</div>
 			</div>
+=======
+			 		<i class="icon ion-home ion-ios7-plus-outline" ng-click="atualizacao.texto ? addAtualizacao(atualizacao) : void(0)"></i>
+			 		<span ng-show="!criando_atualizacao" class="label" >Nova atualização</span>
 
+			 		<div ng-show="criando_atualizacao">
+			 			<label class="item item-input">
+					    <input type="text" placeholder="Qual atualização houve?" ng-model="atualizacao.texto">
+					  </label>
+>>>>>>> FETCH_HEAD
+
+					  <div class="item item-checkbox">
+				     	É para fechar o pedido?
+						  <label class="checkbox ">
+				        <input type="checkbox" ng-model="atualizacao.fecha_pedido" >
+				     	</label>
+				    </div>
+			 		</div>
+
+			 	</div>
+			</div> 
+			
 		</div>
-
-		<div class="noshadow"></div>
 		
 	</ion-content>
 

@@ -1,13 +1,13 @@
-<ion-view>
+<ion-view class="pedidos-index">
 
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
 
   <div class="has-header content padding">
-    <div class="button-bar bar-dark padding">
-      <a class="button icon ion-ios7-heart"   ng-class="{ active: filter.check('opened') }" ng-click="filter.update('opened')"></a>
-      <a class="button icon ion-checkmark-circled" ng-class="{ active: filter.check('closed') }" ng-click="filter.update('closed')"></a>
+    <div class="button-bar bar-positive padding">
+      <a class="button icon icon-left ion-ios7-heart"   ng-class="{ active: filter.check('opened') }" ng-click="filter.update('opened')">Em Aberto</a>
+      <a class="button icon icon-left ion-checkmark-circled" ng-class="{ active: filter.check('closed') }" ng-click="filter.update('closed')">Respondidos</a>
     </div>
   </div>
 

@@ -1,4 +1,4 @@
-define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
+define(['application', '../lib/query_wrapper', '../services/atualizacao'], function(app, QueryWrapper, Atualizacao) {
 
   var Pedido = Parse.Object.extend("Oracao", {
 
@@ -7,7 +7,21 @@ define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
     },
 
     status: function() {
-      return this.get('resposta') == null ? 'opened' : 'closed';
+      return this.get('fechado') == true ? 'closed' : 'opened';
+    },
+
+    getAtualizacoes: function(cb) {
+      this.relation("atualizacoes").query().find({ success: cb }, { error: cb });
+    },
+
+    addAtualizacao: function(atualizacao) {
+      this.relation('atualizacoes').add(atualizacao);
+      this.set('fechado', atualizacao.get('fecha_pedido'));
+      this.save();
+    },
+
+    touch: function() {
+      this.set(!this.get('touch'));
     }
   });
 
@@ -34,11 +48,11 @@ define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
     },
 
     opened: function() {
-      this.equalTo("resposta", null);
+      this.notEqualTo(fechado, true);
     },
 
     closed: function() {
-      this.notEqualTo("resposta", null);
+      this.equalTo(fechado, false);
     }
 
   });

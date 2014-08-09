@@ -3,40 +3,22 @@
 @import "ionic.app";
 @import "pedidos";
 
-.button-bar {
-  width: 260px;
-  margin: auto;
-
-  .icon {
-    background: #eee;
-    border: 1px solid #ddd;
-
-    &:first-child {
-      margin-right: -1px;
-    } 
-    
-    &.active, &:active {
-      background: #ccc;
-      margin-right: 0px;
-      border: 1px solid #bbb;
-    }
-  }
-}
 
 .nav-bar {
   -webkit-box-shadow: 0px 3px 7px 0px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0px 3px 7px 0px rgba(50, 50, 50, 0.75);
-  box-shadow:         0px 2px 7px 0px rgba(50,50,50,0.75);
+  box-shadow:         0px 1px 7px 0px rgba(50,50,50,0.75);
 }
 
 .noshadow {
   height: 5px;
   width: 100%;
   position: relative;
+  top: 15px;
   z-index: 101;
   background: white;
 }
 
 .card.new .item {
-  background: #eee !important;
+  background: #ddd !important;
 }

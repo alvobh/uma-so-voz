@@ -1,7 +1,17 @@
 
 
-.listagem {
-  top: 124px;
+
+
+.pedidos-index {
+
+  .button-bar {
+    margin: auto;
+    width: 340px;
+  }
+
+  .listagem {
+    top: 124px;
+  }
 }
 
 
@@ -15,9 +25,13 @@
   .cabecalho {
     background: #eee;
     position: relative;
+    min-height: 140px;
+    -webkit-box-shadow: 0px 3px 7px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 3px 7px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 1px 7px 0px rgba(50, 50, 50, 0.75);
   }
 
-  .author, .date {
+  .author {
     color: #999;
     text-transform: uppercase;
     font-size: 13px;
@@ -26,9 +40,8 @@
   .date {
     color: #aaa;
     font-size: 12px;
-
   }
-
+  
   .pedido {
     line-height: 1.5em;
     font-size: 20px;
@@ -36,13 +49,35 @@
   }
 
   .comentarios {
-    padding-top: 1px;
-    z-index: 10;
-    position: relative;
-    -webkit-box-shadow: 0px 3px 7px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    0px 3px 7px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         0px 0px 7px 0px rgba(50, 50, 50, 0.75);
+    padding-bottom: 60px;
   }
 
+  h4 {
+    font-size: 14px;
+    color: #666;
+    margin: auto;
+    display: table;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+   
+  .card {
+    clear: both;
+  }
+
+  .details {
+    float: right;
+    padding-right: 10px;
+    margin-top: -20px;
+  }
+
+  .item-checkbox {
+    color: #aaa;
+    font-size: 14px;
+    padding-left: 8px;
+    height: 47px;
+    padding-top: 13px;
+    input { float: right; }
+  }
 
 }

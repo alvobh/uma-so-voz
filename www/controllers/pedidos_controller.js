@@ -71,9 +71,9 @@ define(['application', '../services/pedido','../lib/local_cache'], function(app,
       $scope.$apply();
     })
 
-    $scope.load_pedidos = function(page) {
-      $rootScope.loading = true;      // [$scope.filter]
-      Pedido.paginate($scope.qtd, page).all(function(pedidos) {
+    $scope.load_pedidos = function(page) {      
+      $rootScope.showLoading();
+      Pedido.paginate($scope.qtd, page)[$stateParams.filter](function(pedidos) {
         $rootScope.loading = false;
         $scope.page    = page;
         $scope.pedidos = $scope.pedidos.concat(pedidos);
@@ -86,18 +86,57 @@ define(['application', '../services/pedido','../lib/local_cache'], function(app,
     
   })
 
-  .controller('PedidosShow', function($scope, $rootScope, $stateParams, Pedido) {
-    $scope.filter = $stateParams.filter;
-    $rootScope.loading = true;
-    window.Pedido = Pedido;
+  .controller('PedidosShow', function($scope, $rootScope, $stateParams, Pedido, Atualizacao) {
+    $scope.atualizacoes = [];
+    $rootScope.showLoading();
+
+    $scope.resetAtualizacao = function() {
+      $scope.criando_atualizacao = false;
+      $scope.atualizacao         = { texto: null, fecha_pedido: false };
+    }
+
+    $scope.comecaAtualizacao = function() {
+      if(!$scope.criando_atualizacao)
+        $scope.criando_atualizacao = true;
+    }
+
+    $scope.addAtualizacao = function(attrs) {
+      if(attrs.texto) {
+        $scope.status_atualizacao = 3;
+        $rootScope.showLoading();
+        var a = new Atualizacao(attrs);
+        a.save(null, {
+          success: function(atualizacao) {
+            $scope.resetAtualizacao();
+            $scope.pedido.addAtualizacao(atualizacao);
+            $scope.loadAtualizacoes([atualizacao].concat($scope.atualizacoes));
+          }
+        })
+      }
+    }
+
+    $scope.loadAtualizacoes = function(atualizacoes) {
+      $scope.atualizacoes = atualizacoes;
+      $rootScope.hideLoading();
+      $scope.$apply();
+    }
+    
     Pedido.get($stateParams.id, function(pedido) {
       $scope.pedido = pedido;
+<<<<<<< HEAD
       $scope.pedido.meu = verificaMeusPedidos(pedido);
 
       $rootScope.loading = false;
       $scope.$apply();
     })
 
+=======
+      $scope.pedido.getAtualizacoes($scope.loadAtualizacoes);
+      $scope.$apply();
+    });
+
+    $scope.resetAtualizacao();
+>>>>>>> FETCH_HEAD
   });
 
   function verificaMeusPedidos(pedido){
