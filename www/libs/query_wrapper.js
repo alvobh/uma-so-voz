@@ -16,6 +16,8 @@ define(['../services/parse'], function() {
 
   QueryWrapper.wrap = function(dao, getters) {
 
+    dao.query = {};
+
     var dao_wrapper = function(getter) {
       return function() {
         var query = new QueryWrapper(dao);
@@ -40,8 +42,8 @@ define(['../services/parse'], function() {
         object[getter] = wrapper(getter);
     }
 
-    wrap(dao, dao_wrapper, getters);
-    wrap(dao, dao_wrapper, new QueryWrapper(dao))
+    wrap(dao.query, dao_wrapper, getters);
+    wrap(dao.query, dao_wrapper, new QueryWrapper(dao))
 
     // callback identification
 

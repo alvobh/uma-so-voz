@@ -5,26 +5,12 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
   .controller('PedidosNew', function($scope, $rootScope, $ionicSideMenuDelegate, Pedido) {
 
     $scope.pedido = {};
-    $scope.cria = function(pedido) {
-      var p = new Pedido(pedido);
-      p.save(null, {
-        success: function() {
-          $scope.pedido  = {};
-          $rootScope.$emit('pedidos.new', p);
-          saveLocal(p);
-          $ionicSideMenuDelegate.toggleRight();
-
-        }
+    $scope.cria = function(attrs) {
+      Pedido.create(attrs, function(pedido, errors) {
+        $scope.pedido = {};
+        $rootScope.$emit('pedidos.new', pedido);
+        $ionicSideMenuDelegate.toggleRight();
       });
-
-      function saveLocal(p){
-        var pedido = LocalCache.get('pedido','meus');
-          if(pedido === null){
-            pedido = new Array();
-          }
-          pedido.push(p.id);
-          LocalCache.save('pedido','meus',pedido);
-      }   
     }
 
     $scope.removePedido = function(pedido) {
@@ -75,7 +61,9 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
 
     $scope.load_pedidos = function(page) {      
       $rootScope.showLoading();
-      Pedido.paginate($scope.qtd, page)[$stateParams.filter](function(pedidos) {
+      // Pedido.paginate($scope.qtd, page, function(pedidos) {
+      Pedido.all(false, function(pedidos) {
+        console.log(pedidos);
         if(pedidos.length == 0) $scope.tem_mais_pedidos = false;
         $rootScope.hideLoading();
         $scope.page    = page;

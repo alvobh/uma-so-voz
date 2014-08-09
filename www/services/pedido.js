@@ -1,4 +1,4 @@
-define(['application', 'libs/query_wrapper', 'services/atualizacao'], function(app, QueryWrapper, Atualizacao) {
+define(['application', 'libs/query_wrapper', 'libs/cache_wrapper', 'services/atualizacao'], function(app, QueryWrapper, CacheWrapper, Atualizacao) {
 
   var Pedido = Parse.Object.extend("Oracao", {
 
@@ -18,11 +18,62 @@ define(['application', 'libs/query_wrapper', 'services/atualizacao'], function(a
       this.relation('atualizacoes').add(atualizacao);
       this.set('fechado', atualizacao.get('fecha_pedido'));
       this.save();
+    }
+
+  });
+
+  // interface
+
+  Pedido.all = function(force, callback) {
+    var pedidos = Pedido.cache.all();
+    if(force || pedidos.length == 0) {
+      Pedido.query.all(function(pedidos) {
+        Pedido.cache.insert(pedidos);
+        callback(pedidos);
+      });
+    } else {
+      callback(pedidos);
+    }
+  }
+
+  Pedido.get = function(id, callback) {
+    var pedido = Pedido.cache.get(id);
+    if(pedido) callback(pedido);
+    else Pedido.query.get(id, callback);
+  }
+
+  Pedido.create = function(attrs, callback) {
+    attrs.user_uuid = ionic.Platform.device().uuid;
+    var object = new Pedido(attrs);
+    object.save(null, {
+      error: callback,
+      success: function(pedido) {
+        Pedido.cache.insert(pedido);
+        callback(object);
+      }
+    });   
+  }
+
+  // connecting the services
+
+  CacheWrapper.wrap(Pedido, 'pedidos', { 
+    
+    mine: function() {
+      return ionic.Platform.device().uuid == this.get('user_uuid');
     },
 
-    touch: function() {
-      this.set(!this.get('touch'));
+    opened: function() {
+      console.log(!this.get('fechado'));
+      return !this.get('fechado');
+    },
+
+    closed: function() {
+      return this.get('fechado');
     }
+
+  }, function() {
+
+
   });
 
   QueryWrapper.wrap(Pedido, {
@@ -35,10 +86,6 @@ define(['application', 'libs/query_wrapper', 'services/atualizacao'], function(a
       this.equalTo("id",meus);
     },
 
-    paginate: function(qtd, page) {
-      this.limit(qtd).skip(page*qtd);
-    },
-
     by_user: function() {
       this.equalTo("user",   user);
     },
@@ -46,14 +93,6 @@ define(['application', 'libs/query_wrapper', 'services/atualizacao'], function(a
     not_deleted: function() {
       this.equalTo("delete", false);
     },
-
-    opened: function() {
-      this.notEqualTo(fechado, true);
-    },
-
-    closed: function() {
-      this.equalTo(fechado, false);
-    }
 
   });
 
