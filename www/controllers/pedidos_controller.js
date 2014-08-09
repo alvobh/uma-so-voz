@@ -50,9 +50,9 @@ define(['application', '../lib/local_cache', '../services/pedido'], function(app
       $scope.$apply();
     })
 
-    $scope.load_pedidos = function(page) {
-      $rootScope.loading = true;      // [$scope.filter]
-      Pedido.paginate($scope.qtd, page).all(function(pedidos) {
+    $scope.load_pedidos = function(page) {      
+      $rootScope.showLoading();
+      Pedido.paginate($scope.qtd, page)[$stateParams.filter](function(pedidos) {
         $rootScope.loading = false;
         $scope.page    = page;
         $scope.pedidos = $scope.pedidos.concat(pedidos);
@@ -65,12 +65,26 @@ define(['application', '../lib/local_cache', '../services/pedido'], function(app
     
   })
 
-  .controller('PedidosShow', function($scope, $rootScope, $stateParams, Pedido) {
-    $scope.filter = $stateParams.filter;
-    $rootScope.loading = true;
-    window.Pedido = Pedido;
+  .controller('PedidosShow', function($scope, $rootScope, $stateParams, Pedido, Atualizacao) {
+    $scope.atualizacao  = { texto: "" };
+    $scope.atualizacoes = [];
+    $rootScope.showLoading();
+
+    $scope.addAtualizacao = function(attrs) {
+      $rootScope.showLoading();
+      var a = new Atualizacao(attrs);
+      a.save(null, {
+        success: function(atualizacao) {
+          $rootScope.hideLoading();
+          $scope.pedido.addAtualizacao(atualizacao);
+          $scope.atualizacoes = [atualizacao].concat($scope.atualizacoes);
+          $scope.$apply();
+        }
+      })
+    }
+    
     Pedido.get($stateParams.id, function(pedido) {
-      $scope.pedido = pedido;
+      $scope.pedido      = pedido;
       $rootScope.loading = false;
       $scope.$apply();
     })
