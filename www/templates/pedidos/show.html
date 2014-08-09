@@ -1,16 +1,39 @@
-<ion-view>
-	
+<ion-view class="pedidos-show">	
 	<ion-content class="has-header">
 
-		<div class="card">
-		  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
+		<div class="cabecalho padding-top">
+			<div class="padding">
+				<span class="author padding-top">{{ pedido.prettyName() }}</span>
+				<span class="date">{{ pedido.createdAt | date:'dd/MM HH:mm'  }}</span>
+				<p class="pedido">{{ pedido.get('texto') }}</p>
+			</div>
 		</div>
 
-		<div class="details">
-			por <span class="author">{{ pedido.prettyName() }}</span>,
-			em <span class="author">{{ pedido.createdAt | date:'dd/MM/yyyy'  }}</span>
-			às <span class="author">{{ pedido.createdAt | date:'HH:mm'  }}</span>
+		<div class="comentarios shadow padding-bottom content">
+
+			<div class="card">
+			  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
+			</div>
+
+			<div class="card">
+			  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
+			</div>
+
+			<div class="card">
+			  <div class="item item-text-wrap">{{ pedido.get('texto') }}</div>
+			</div> 
+
+			<div class="card new ">
+			 	<div class="item item-icon-left">
+			 		<i class="icon ion-home ion-ios7-plus-outline"></i>
+			 		Nova atualização
+			 	</div>
+			</div> 
+
+
 		</div>
+
+		<div class="noshadow"></div>
 		
 	</ion-content>
 

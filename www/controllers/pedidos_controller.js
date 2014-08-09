@@ -1,4 +1,4 @@
-define(['application', '../services/pedido'], function(app) {
+define(['application', '../lib/local_cache', '../services/pedido'], function(app, LocalCache) {
 
   app
 
@@ -23,6 +23,8 @@ define(['application', '../services/pedido'], function(app) {
     $scope.pedidos = [];
     $scope.qtd     = 10;
     $scope.page    = 0;
+
+    // console.log(pedidos);
 
     $scope.filter  = new function() {
       var status = $stateParams.filter, that = this;
