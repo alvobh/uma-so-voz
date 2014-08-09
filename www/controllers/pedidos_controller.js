@@ -26,6 +26,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
           LocalCache.save('pedido','meus',pedido);
       }   
     }
+
     $scope.removePedido = function(pedido) {
       var p = new Pedido(pedido);
       p.save(null, {
@@ -68,7 +69,6 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
       // $scope.alert   = 'Pedido criado com sucesso!'; TODO criar alerta com phonegap
       // setTimeout($scope.remove_alert, 3000);
       $scope.pedidos = [pedido].concat($scope.pedidos);
-
       $scope.$apply();
     });
 
@@ -135,7 +135,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
   });
 
   function verificaMeusPedidos(pedido){
-    var meuPedido = LocalCache.get('pedido','meus').indexOf(pedido.id);
+    var meuPedido = (LocalCache.get('pedido','meus') || []).indexOf(pedido.id);
     return meuPedido != -1;
   }
 
