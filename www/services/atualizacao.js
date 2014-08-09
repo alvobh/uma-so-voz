@@ -1,4 +1,4 @@
-define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
+define(['application', 'libs/query_wrapper'], function(app, QueryWrapper) {
 
   var Atualizacao = Parse.Object.extend("Atualizacao");
 
@@ -6,10 +6,6 @@ define(['application', '../lib/query_wrapper'], function(app, QueryWrapper) {
 
     all: function(callback) {
       this.descending('updatedAt').find({ success: callback });
-    },
-
-    do_pedido: function(id) {
-      this.equalTo("pedido", id);
     }
 
   });

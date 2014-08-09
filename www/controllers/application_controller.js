@@ -3,11 +3,11 @@ define(['application'], function(app) {
   app.controller('ContentController', function($scope, $rootScope, $ionicSideMenuDelegate) {
 
     $rootScope.showLoading = function() {
-      $scope.loading = true;
+      $rootScope.loading = true;
     }
 
     $rootScope.hideLoading = function() {
-      $scope.loading = false;
+      $rootScope.loading = false;
     }
     
     $scope.toggleLeft = function() {

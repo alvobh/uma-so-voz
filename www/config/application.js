@@ -1,4 +1,4 @@
-define(['angular', 'angularIonic', 'uiRouter'], function (angular, plugins) {
+define(['ionic'], function () {
 
   return angular.module('UmaSoVoz', ['ionic', 'ui.router']);
 

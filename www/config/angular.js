@@ -1,4 +1,4 @@
-define(['ionic', 'angular', 'application', 'routes', 'plugins'], function(ionic, angular, app) {
+define(['ionic', 'application', 'config/routes', 'config/plugins'], function(ionic, app) {
   'use strict';
 
     var $html,

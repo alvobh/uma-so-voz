@@ -1,4 +1,4 @@
-define(['application', '../lib/query_wrapper', '../services/atualizacao'], function(app, QueryWrapper, Atualizacao) {
+define(['application', 'libs/query_wrapper', 'services/atualizacao'], function(app, QueryWrapper, Atualizacao) {
 
   var Pedido = Parse.Object.extend("Oracao", {
 
@@ -56,5 +56,7 @@ define(['application', '../lib/query_wrapper', '../services/atualizacao'], funct
   app.factory('Pedido', function() {
     return Pedido;
   });
+
+  return Pedido;
 
 })

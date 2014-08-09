@@ -1,4 +1,4 @@
-define(['application', '../services/parse'], function(app) {
+define(['application', 'services/parse'], function(app) {
   
   var Usuario =  function() {
 

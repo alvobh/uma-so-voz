@@ -1,4 +1,4 @@
-<ion-view class="pedidos-index">
+<ion-view class="pedidos-index" title="Pedidos">
 
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -24,12 +24,9 @@
 
     </ion-list> 
 
-    <ion-infinite-scroll on-infinite="load_pedidos(page+1)" distance="1%"></ion-infinite-scroll>
+    <ion-infinite-scroll on-infinite="load_pedidos(page+1)" ng-if="tem_mais_pedidos" distance="1%"></ion-infinite-scroll>
 
 	</ion-content>
 
 </ion-view>	
-
-
-
 

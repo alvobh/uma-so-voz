@@ -1,4 +1,4 @@
-define(['application', '../services/usuario'], function(app) {
+define(['application', 'services/usuario'], function(app) {
 
   app.controller('UsuariosHome', function($scope, Pedido) {
     var user = Parse.User.current();

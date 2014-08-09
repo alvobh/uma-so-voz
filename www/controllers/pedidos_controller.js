@@ -1,4 +1,4 @@
-define(['application', '../lib/local_cache', '../services/pedido'], function(app, LocalCache) {
+define(['application', 'libs/local_cache', 'services/pedido'], function(app, LocalCache) {
 
   app
 
@@ -18,13 +18,12 @@ define(['application', '../lib/local_cache', '../services/pedido'], function(app
 
   })
 
-  .controller('PedidosIndex', function($scope, $rootScope, $stateParams, Pedido) {
+  .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicPopover, Pedido) {
 
     $scope.pedidos = [];
     $scope.qtd     = 10;
     $scope.page    = 0;
-
-    // console.log(pedidos);
+    $scope.tem_mais_pedidos = false;
 
     $scope.filter  = new function() {
       var status = $stateParams.filter, that = this;
@@ -48,12 +47,14 @@ define(['application', '../lib/local_cache', '../services/pedido'], function(app
       // setTimeout($scope.remove_alert, 3000);
       $scope.pedidos = [pedido].concat($scope.pedidos);
       $scope.$apply();
-    })
+    });
+
 
     $scope.load_pedidos = function(page) {      
       $rootScope.showLoading();
       Pedido.paginate($scope.qtd, page)[$stateParams.filter](function(pedidos) {
-        $rootScope.loading = false;
+        if(pedidos.length == 0) $scope.tem_mais_pedidos = false;
+        $rootScope.hideLoading();
         $scope.page    = page;
         $scope.pedidos = $scope.pedidos.concat(pedidos);
         $scope.$broadcast('scroll.infiniteScrollComplete');
