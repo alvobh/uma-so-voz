@@ -6,7 +6,6 @@ define(['application'], function(app) {
       $ionicSideMenuDelegate.toggleLeft();
     };
 
-  })
-  
+  }) 
 });
-  
+

@@ -1,8 +1,8 @@
-define(['application', '../services/pedido'], function(app) {
+define(['application', '../services/pedido','../lib/local_cache'], function(app, Pedido, LocalCache) {
 
   app
 
-  .controller('PedidosNew', function($scope, $rootScope, $ionicSideMenuDelegate) {
+  .controller('PedidosNew', function($scope, $rootScope, $ionicSideMenuDelegate, Pedido) {
 
     $scope.pedido = {};
     $scope.cria = function(pedido) {
@@ -11,7 +11,12 @@ define(['application', '../services/pedido'], function(app) {
         success: function() {
           $scope.pedido  = {};
           $rootScope.$emit('pedidos.new', p);
+          
+          var pedido = LocalCache.get('pedido','meus');
+          console.log(pedido);
+
           $ionicSideMenuDelegate.toggleRight();
+
         }
       });
     }
@@ -45,6 +50,7 @@ define(['application', '../services/pedido'], function(app) {
       // $scope.alert   = 'Pedido criado com sucesso!'; TODO criar alerta com phonegap
       // setTimeout($scope.remove_alert, 3000);
       $scope.pedidos = [pedido].concat($scope.pedidos);
+
       $scope.$apply();
     })
 
@@ -73,6 +79,4 @@ define(['application', '../services/pedido'], function(app) {
       $scope.$apply();
     })
   });
-  
-});
-  
+});  
