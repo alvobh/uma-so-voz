@@ -46,8 +46,13 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
       }
 
       this.update = function(value) {
-        if(that.check(value)) status = undefined;
-        else status = value;
+        if(that.check(value)) {
+          status = undefined;
+          $scope.pedidos = $scope.all
+        } else {          
+          status = value;
+          $scope.pedidos = $scope[value];
+        }
       }
     }();
 
@@ -58,17 +63,19 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
       $scope.$apply();
     });
 
+    $scope.update_scroll = function(pedidos, page) {    
+      if(pedidos.length == 0) $scope.tem_mais_pedidos = false;  
+      $scope.page    = page;
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
 
     $scope.load_pedidos = function(page) {      
       $rootScope.showLoading();
-      // Pedido.paginate($scope.qtd, page, function(pedidos) {
-      Pedido.all(false, function(pedidos) {
-        console.log(pedidos);
-        if(pedidos.length == 0) $scope.tem_mais_pedidos = false;
+      Pedido.fetch(function(pedidos) {
         $rootScope.hideLoading();
-        $scope.page    = page;
-        $scope.pedidos = $scope.pedidos.concat(pedidos);
-        $scope.$broadcast('scroll.infiniteScrollComplete');
+        $scope.pedidos = $scope.all = pedidos;
+        $scope.opened  = Pedido.cache.opened();
+        $scope.closed  = Pedido.cache.closed(); 
         $scope.$apply();
       });
     }
@@ -112,7 +119,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
       $scope.$apply();
     }
     
-    Pedido.get($stateParams.id, function(pedido) {
+    Pedido.cache.get($stateParams.id, function(pedido) {
       $scope.pedido = pedido;
       $scope.pedido.meu = verificaMeusPedidos(pedido);
       $scope.pedido.getAtualizacoes($scope.loadAtualizacoes);

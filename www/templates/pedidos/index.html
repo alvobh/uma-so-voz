@@ -17,14 +17,15 @@
 
     <ion-list class="inset-list">
 
-      <ion-item ng-repeat="pedido in pedidos | filter:filter.item" ng-href="#/pedidos/show/{{pedido.id}}" class="item">
+      <ion-item ng-repeat="pedido in pedidos" ng-href="#/pedidos/show/{{pedido.id}}" class="item">
         <h2>{{ pedido.get('nome') }}</h2>
         <p class="item-text-wrap">{{ pedido.get('texto') }}</p>
       </ion-item>
 
     </ion-list> 
 
-    <ion-infinite-scroll on-infinite="load_pedidos(page+1)" ng-if="tem_mais_pedidos" distance="1%"></ion-infinite-scroll>
+<!-- 
+    <ion-infinite-scroll on-infinite="load_pedidos(page+1)" ng-if="tem_mais_pedidos" distance="1%"></ion-infinite-scroll> -->
 
 	</ion-content>
 

@@ -1,4 +1,4 @@
-define(['application', 'libs/query_wrapper', 'libs/cache_wrapper', 'services/atualizacao'], function(app, QueryWrapper, CacheWrapper, Atualizacao) {
+define(['application', 'libs/query_wrapper', 'libs/query_cache', 'services/atualizacao'], function(app, QueryWrapper, QueryCache, Atualizacao) {
 
   var Pedido = Parse.Object.extend("Oracao", {
 
@@ -22,25 +22,8 @@ define(['application', 'libs/query_wrapper', 'libs/cache_wrapper', 'services/atu
 
   });
 
-  // interface
+  // sync
 
-  Pedido.all = function(force, callback) {
-    var pedidos = Pedido.cache.all();
-    if(force || pedidos.length == 0) {
-      Pedido.query.all(function(pedidos) {
-        Pedido.cache.insert(pedidos);
-        callback(pedidos);
-      });
-    } else {
-      callback(pedidos);
-    }
-  }
-
-  Pedido.get = function(id, callback) {
-    var pedido = Pedido.cache.get(id);
-    if(pedido) callback(pedido);
-    else Pedido.query.get(id, callback);
-  }
 
   Pedido.create = function(attrs, callback) {
     attrs.user_uuid = ionic.Platform.device().uuid;
@@ -54,27 +37,7 @@ define(['application', 'libs/query_wrapper', 'libs/cache_wrapper', 'services/atu
     });   
   }
 
-  // connecting the services
-
-  CacheWrapper.wrap(Pedido, 'pedidos', { 
-    
-    mine: function() {
-      return ionic.Platform.device().uuid == this.get('user_uuid');
-    },
-
-    opened: function() {
-      console.log(!this.get('fechado'));
-      return !this.get('fechado');
-    },
-
-    closed: function() {
-      return this.get('fechado');
-    }
-
-  }, function() {
-
-
-  });
+  // remote queries
 
   QueryWrapper.wrap(Pedido, {
 
@@ -82,19 +45,32 @@ define(['application', 'libs/query_wrapper', 'libs/cache_wrapper', 'services/atu
       this.descending('updatedAt').find({ success: callback });
     },
 
-    my:function(meus){
-      this.equalTo("id",meus);
-    },
-
-    by_user: function() {
-      this.equalTo("user",   user);
-    },
-
-    not_deleted: function() {
-      this.equalTo("delete", false);
+    since: function(since) {
+      // this.greaterThan('createdAt', since);
     },
 
   });
+
+
+  // cached queries
+
+  QueryCache.wrap(Pedido, Pedido.query.since, {
+
+    closed: function() {
+      return this.get('fechado');
+    },
+
+    opened: function() {
+      return !this.get('fechado');
+    },
+
+    mine: function() {
+      return this.get('user_uuid') == ionic.Platform.device().uuid;
+    }
+
+  });
+
+  // factory
 
   app.factory('Pedido', function() {
     return Pedido;

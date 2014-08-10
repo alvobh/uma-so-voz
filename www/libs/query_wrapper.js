@@ -1,4 +1,4 @@
-define(['../services/parse'], function() {
+define(['services/parse'], function() {
 
   var QueryWrapper = function(dao) {
 
@@ -31,7 +31,7 @@ define(['../services/parse'], function() {
         var cb = callback(arguments);
         getters[getter].apply(this.query, arguments);
         if(getter != 'all') {
-          if(cb) this.all.apply(this, arguments);
+          if(cb) this.all.apply(this, [cb]);
           else return this;
         }
       }   
