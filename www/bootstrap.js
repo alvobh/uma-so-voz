@@ -13,4 +13,4 @@ require.config({
 
 });
 
-require(['config/angular']);
+require(['cordova','config/angular']);

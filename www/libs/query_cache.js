@@ -2,39 +2,86 @@ define(['libs/local_cache'], function(LocalCache) {
 
   var CollectionsCache = function(Model) {
 
-    var scope = Model.prototype.className;
+    var scope = Model.prototype.className,
+        that  = this,
+        specs = {};
 
-    this.load = function(name) {
-      window.model = Model;
-      var cache      = LocalCache.get(scope, 'all') || [],
-          collection = [];
-      for(i in cache) collection.push(new Model(cache[i]));
-      return collection;
+    // collection
+
+    var Collection =  function() {} 
+
+    Collection.prototype = new Array;
+    Collection.prototype.afilter = Collection.prototype.filter;
+
+    Collection.prototype.filter = function(name) {
+      // TODO cache the filter
+      var array = this.afilter(specs[name]);
+      return Collection.from(array);     
     }
 
-    this.save = function(name, objects, last_update) {
-      if(objects.constructor !== Array) this[name] = [objects].concat(this[name]);
-      else this[name] = objects;
-      LocalCache.save(scope, name, this[name]);
+    Collection.from = function() {
+      var tmp_collection = new Collection();
+      for(a in arguments)
+        for(i in arguments[a])
+          tmp_collection.push(arguments[a][i]);
+      return tmp_collection;   
+    }
+
+    // cache
+
+    this.load = function(name) {
+      var collection = new Collection();
+      var cache      = this.load(name);
+      for(i in cache) collection.push(new Model(cache[i]));
+      return Collection.from(cache);
+    }
+
+    this.set = function(name, objects, last_update) {
+      LocalCache.save(scope, name, objects);
       LocalCache.save(scope, name + "-update", last_update);
     }
 
-    this.filter = function(collection, func) {
-      var tmp_collection = [];
-      for(i in collection)
-        if(func.apply(collection[i]))
-          tmp_collection.push(collection[i]);
-      return tmp_collection;     
+    this.get = function(name) {
+      return LocalCache.get(scope, name) || [];
     }
+
+    // filter
 
     this.apply_filters = function(object, filters) {
       if(object.constructor !== Array) {
         for(f in filters)
           if(this[f] && filters[f].apply(object))
-            this[f] = [object].concat(this[f]);
+            this[f] = Collection.from([object], this.collection(name));
       } else {
         for(f in filters)
           this[f] = null;
+      }
+    }
+
+    // interface
+
+    this.collection = function(name) {
+      if(!this['all']) this['all'] = this.load('all');
+      if(!this[name] ) this[name]  = this.collection('all').filter(name);
+      return this[name];
+    }
+
+    this.save_collection = function(name, objects) {
+      if(objects.constructor !== Array) objects = [objects].concat(this.get(name));
+      var last_update = new Date().getTime();
+      this.set(name, objects, last_update)
+      this[name] = Collection.from(objects);
+    }
+
+    this.add_collection = function(name, filter_func) {
+      specs[name] = function(item) {
+        return filter_func.apply(item);
+      }
+    }
+
+    this.get_collection = function(name) {
+      return function() {
+        return that.collection(name);
       }
     }
 
@@ -49,8 +96,7 @@ define(['libs/local_cache'], function(LocalCache) {
     // cache
 
     this.insert = function(objects) {
-      last_update = new Date().getTime();
-      collections.save('all', objects, last_update);
+      collections.save_collection('all', objects);
       collections.apply_filters(objects, queries);
     }
 
@@ -58,12 +104,10 @@ define(['libs/local_cache'], function(LocalCache) {
       return last_update;
     }
 
-    // queries
+    // default queries
 
     this.all = function() {
-      if(!collections.all)
-        collections.all = collections.load('all');
-      return collections.all;
+      return collections.collection('all');
     }
   
     this.get = function(id, callback) {
@@ -73,18 +117,12 @@ define(['libs/local_cache'], function(LocalCache) {
           callback(collection[i]);
     }
 
-    // queries builders
+    // custom queries
 
-    this.collection = function(name, filter_func) {
-      return function() {
-        if(!collections[name])
-          collections[name] = collections.filter(that.all(), filter_func);
-        return collections[name];
-      }
+    for(f in queries) {
+      collections.add_collection(f, queries[f]);
+      this[f] = collections.get_collection(f);
     }
-
-    for(f in queries) 
-      this[f] = this.collection(f, queries[f]);
 
   }
 

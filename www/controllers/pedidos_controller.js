@@ -32,6 +32,8 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
     $scope.filter = 'opened';
     $scope.tem_mais_pedidos = false;
 
+    // console.log(ionic.Platform);
+
     $scope.update_scroll = function(pedidos, page) {    
       if(pedidos.length == 0) $scope.tem_mais_pedidos = false;  
       $scope.page    = page;
@@ -40,7 +42,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
 
     $scope.update_pedidos = function(new_filter) {
       if(new_filter) $scope.update_filter(new_filter);
-      $scope.pedidos = Pedido.cache[$scope.filter]();
+      $scope.pedidos = Pedido.cache[$stateParams.filter]().filter($scope.filter);
       $ionicScrollDelegate.scrollTop();
     }
 

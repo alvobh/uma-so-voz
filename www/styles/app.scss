@@ -22,3 +22,14 @@
 .card.new .item {
   background: #ddd !important;
 }
+
+.sidebar {
+  
+  .inactive {
+    color: #bbb !important;
+  }
+
+  .active, .activated {
+    color: #444 !important;
+  }
+}
