@@ -28,40 +28,10 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
   })
 
   .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicPopover, Pedido) {
-
-    $scope.pedidos = [];
-    $scope.qtd     = 10;
-    $scope.page    = 0;
+    $scope.qtd    = 10;
+    $scope.page   = 0;
+    $scope.filter = $stateParams.filter;
     $scope.tem_mais_pedidos = false;
-
-    $scope.filter  = new function() {
-      var status = $stateParams.filter, that = this;
-
-      this.check = function(value) {
-        return status == value;
-      }
-
-      this.item = function(item) {
-        return that.check(undefined) || that.check('all') || that.check(item.status());
-      }
-
-      this.update = function(value) {
-        if(that.check(value)) {
-          status = undefined;
-          $scope.pedidos = $scope.all
-        } else {          
-          status = value;
-          $scope.pedidos = $scope[value];
-        }
-      }
-    }();
-
-    $rootScope.$on('pedidos.new', function(event, pedido) {
-      // $scope.alert   = 'Pedido criado com sucesso!'; TODO criar alerta com phonegap
-      // setTimeout($scope.remove_alert, 3000);
-      $scope.pedidos = [pedido].concat($scope.pedidos);
-      $scope.$apply();
-    });
 
     $scope.update_scroll = function(pedidos, page) {    
       if(pedidos.length == 0) $scope.tem_mais_pedidos = false;  
@@ -69,16 +39,30 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
       $scope.$broadcast('scroll.infiniteScrollComplete');
     }
 
-    $scope.load_pedidos = function(page) {      
+    $scope.update_pedidos = function(new_filter) {
+      if(new_filter) $scope.update_filter(new_filter);
+      $scope.pedidos = Pedido.cache[$scope.filter]();
+    }
+
+    $scope.update_filter = function(new_filter) {
+      if($scope.filter == new_filter) $scope.filter = $stateParams.filter;
+      else $scope.filter = new_filter;
+    }
+
+    $scope.load_pedidos = function() {      
       $rootScope.showLoading();
       Pedido.fetch(function(pedidos) {
         $rootScope.hideLoading();
-        $scope.pedidos = $scope.all = pedidos;
-        $scope.opened  = Pedido.cache.opened();
-        $scope.closed  = Pedido.cache.closed(); 
+        $scope.update_pedidos();
+        $scope.$broadcast('scroll.refreshComplete');
         $scope.$apply();
       });
     }
+
+    $rootScope.$on('pedidos.new', function(event, pedido) {
+      $scope.update_pedidos();
+      $scope.$apply();
+    });
 
     $scope.load_pedidos($scope.page);
     

@@ -6,8 +6,8 @@
 
   <div class="has-header content padding">
     <div class="button-bar bar-positive padding">
-      <a class="button icon icon-left ion-ios7-heart"   ng-class="{ active: filter.check('opened') }" ng-click="filter.update('opened')">Em Aberto</a>
-      <a class="button icon icon-left ion-checkmark-circled" ng-class="{ active: filter.check('closed') }" ng-click="filter.update('closed')">Respondidos</a>
+      <a class="button icon icon-left ion-ios7-heart"   ng-class="{ active: filter == 'opened' }" ng-click="update_pedidos('opened')">Em Aberto</a>
+      <a class="button icon icon-left ion-checkmark-circled" ng-class="{ active: filter == 'closed'  }" ng-click="update_pedidos('closed')">Respondidos</a>
     </div>
   </div>
 

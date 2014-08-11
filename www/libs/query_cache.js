@@ -12,10 +12,10 @@ define(['libs/local_cache'], function(LocalCache) {
       return collection;
     }
 
-    this.save = function(name, objects, into, last_update) {
-      if(objects.constructor !== Array) objects = [objects];
-      var collection = objects.concat(into);
-      LocalCache.save(scope, name, collection);
+    this.save = function(name, objects, last_update) {
+      if(objects.constructor !== Array) this[name] = [objects].concat(this[name]);
+      else this[name] = objects;
+      LocalCache.save(scope, name, this[name]);
       LocalCache.save(scope, name + "-update", last_update);
     }
 
@@ -49,7 +49,7 @@ define(['libs/local_cache'], function(LocalCache) {
 
     this.insert = function(objects) {
       last_update = new Date().getTime();
-      collections.save('all', objects, this.all(), last_update);
+      collections.save('all', objects, last_update);
       collections.apply_filters(objects, queries);
     }
 
