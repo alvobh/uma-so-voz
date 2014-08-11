@@ -3,7 +3,6 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
   app
 
   .controller('PedidosNew', function($scope, $rootScope, $ionicSideMenuDelegate, Pedido) {
-
     $scope.pedido = {};
     $scope.cria = function(attrs) {
       Pedido.create(attrs, function(pedido, errors) {
@@ -27,10 +26,10 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
     }
   })
 
-  .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicScrollDelegate, Pedido) {
+  .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicScrollDelegate, $ionicLoading, Pedido) {
     $scope.qtd    = 10;
     $scope.page   = 0;
-    $scope.filter = $stateParams.filter;
+    $scope.filter = 'opened';
     $scope.tem_mais_pedidos = false;
 
     $scope.update_scroll = function(pedidos, page) {    
@@ -46,8 +45,8 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
     }
 
     $scope.update_filter = function(new_filter) {
-      if($scope.filter == new_filter) $scope.filter = $stateParams.filter;
-      else $scope.filter = new_filter;
+      if($scope.filter != new_filter)
+        $scope.filter = new_filter;
     }
 
     $scope.load_pedidos = function() {      
@@ -62,6 +61,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
 
     $rootScope.$on('pedidos.new', function(event, pedido) {
       $scope.update_pedidos();
+      $ionicLoading.show({ template: 'Pedido adicionado!', noBackdrop: true, duration: 2000 });
       $scope.$apply();
     });
 

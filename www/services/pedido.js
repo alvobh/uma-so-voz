@@ -27,14 +27,16 @@ define(['application', 'libs/query_wrapper', 'libs/query_cache', 'services/atual
 
   Pedido.create = function(attrs, callback) {
     attrs.user_uuid = ionic.Platform.device().uuid;
-    var object = new Pedido(attrs);
-    object.save(null, {
-      error: callback,
-      success: function(pedido) {
-        Pedido.cache.insert(pedido);
-        callback(object);
-      }
-    });   
+    if(attrs.nome && attrs.texto) {      
+      var object = new Pedido(attrs);
+      object.save(null, {
+        error: callback,
+        success: function(pedido) {
+          Pedido.cache.insert(pedido);
+          callback(object);
+        }
+      }); 
+    }  
   }
 
   // remote queries
