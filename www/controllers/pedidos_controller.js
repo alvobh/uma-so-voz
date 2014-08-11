@@ -27,6 +27,9 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
   })
 
   .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicScrollDelegate, $ionicLoading, Pedido) {
+    $scope.title  = 'Pedidos'
+    if($stateParams.filter == 'mine') $scope.title = 'Meus ' + $scope.title;
+
     $scope.qtd    = 10;
     $scope.page   = 0;
     $scope.filter = 'opened';
