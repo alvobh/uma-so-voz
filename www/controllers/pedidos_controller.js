@@ -27,7 +27,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
     }
   })
 
-  .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicPopover, Pedido) {
+  .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicScrollDelegate, Pedido) {
     $scope.qtd    = 10;
     $scope.page   = 0;
     $scope.filter = $stateParams.filter;
@@ -42,6 +42,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
     $scope.update_pedidos = function(new_filter) {
       if(new_filter) $scope.update_filter(new_filter);
       $scope.pedidos = Pedido.cache[$scope.filter]();
+      $ionicScrollDelegate.scrollTop();
     }
 
     $scope.update_filter = function(new_filter) {

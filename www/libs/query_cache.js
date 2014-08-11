@@ -27,13 +27,14 @@ define(['libs/local_cache'], function(LocalCache) {
       return tmp_collection;     
     }
 
-    this.apply_filters = function(objects, filters) {
-      if(objects.constructor !== Array) objects = [objects];
-      for(i in objects) {
-        var object = objects[i];
+    this.apply_filters = function(object, filters) {
+      if(object.constructor !== Array) {
         for(f in filters)
           if(this[f] && filters[f].apply(object))
             this[f] = [object].concat(this[f]);
+      } else {
+        for(f in filters)
+          this[f] = null;
       }
     }
 
