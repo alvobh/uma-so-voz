@@ -8,21 +8,32 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
       Pedido.create(attrs, function(pedido, errors) {
         $scope.pedido = {};
         $rootScope.$emit('pedidos.new', pedido);
+        saveLocal(pedido);
         $ionicSideMenuDelegate.toggleRight();
       });
     }
 
     $scope.removePedido = function(pedido) {
       var p = new Pedido(pedido);
-      p.save(null, {
-        success: function() {
-          $scope.pedido  = {};
-          $rootScope.$emit('pedidos.new', p);
-          saveLocal(p);
-          $ionicSideMenuDelegate.toggleRight();
-
-        }
-      });   
+       $scope.showConfirm = function() {
+         var confirmPopup = $ionicPopup.confirm({
+           title: 'Remover Pedido',
+           template: 'Deseja remover seu pedido?'
+         });
+         confirmPopup.then(function(res) {
+           if(res) {
+             p.destroy();
+           }
+         });
+       };
+    }
+    function saveLocal(pedido){
+      var meusPedidos = LocalCache.get('pedido','meus');
+      if(meusPedidos === null){
+        meusPedidos = new Array();
+      }
+      meusPedidos.push(pedido.id);
+      LocalCache.save('pedido','meus',meusPedidos.id);
     }
   })
 
@@ -34,6 +45,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
     $scope.page   = 0;
     $scope.filter = 'opened';
     $scope.tem_mais_pedidos = false;
+
 
     // console.log(ionic.Platform);
 
@@ -77,6 +89,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
   .controller('PedidosShow', function($scope, $rootScope, $stateParams, Pedido, Atualizacao) {
     $scope.atualizacoes = [];
     $rootScope.showLoading();
+    $scope.meu_pedido = (LocalCache.get('pedido','meus') || []).indexOf($stateParams.id) != -1;
 
     $scope.resetAtualizacao = function() {
       $scope.criando_atualizacao = false;
@@ -108,20 +121,21 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
       $rootScope.hideLoading();
       $scope.$apply();
     }
-    
-    Pedido.cache.get($stateParams.id, function(pedido) {
-      $scope.pedido = pedido;
-      $scope.pedido.meu = verificaMeusPedidos(pedido);
-      $scope.pedido.getAtualizacoes($scope.loadAtualizacoes);
-      $scope.$apply();
-    })
+    $scope.deletePedido = function() {
+      var confirmPopup = $ionicPopup.confirm({
+         title: 'Remover Pedido',
+         template: 'Deseja remover este pedido?'
+       });
+       confirmPopup.then(function(res) {
+         if(res) {
+           $scope.pedido.destroy();
+           history.back();
+           $scope.apply();
+         }
+       });
+    }
 
     $scope.resetAtualizacao();
   });
-
-  function verificaMeusPedidos(pedido){
-    var meuPedido = (LocalCache.get('pedido','meus') || []).indexOf(pedido.id);
-    return meuPedido != -1;
-  }
 
 });  
