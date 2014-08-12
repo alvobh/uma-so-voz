@@ -1,22 +1,25 @@
 define(['libs/local_cache'], function(LocalCache) {
 
-  var CollectionsCache = function(Model) {
-
-    var scope = Model.prototype.className,
-        that  = this,
-        specs = {};
-
-    // collection
-
+  var FilterableCollection = function(filters) {
     var Collection =  function() {} 
 
     Collection.prototype = new Array;
     Collection.prototype.afilter = Collection.prototype.filter;
 
     Collection.prototype.filter = function(name) {
-      // TODO cache the filter
-      var array = this.afilter(specs[name]);
-      return Collection.from(array);     
+      if(!this[name]) {
+        var array = this.afilter(filters[name]);
+        this[name] = Collection.from(array); 
+      }
+      return this[name];    
+    }
+
+    Collection.prototype.get = function(id) {
+      for(i in this) { 
+        console.log(this[i]);
+        if(this[i] && this[i].id == id)
+          return this[i];   
+      }
     }
 
     Collection.from = function() {
@@ -27,22 +30,34 @@ define(['libs/local_cache'], function(LocalCache) {
       return tmp_collection;   
     }
 
+    return Collection;
+  }
+
+  var CollectionsCache = function(Model) {
+
+    var scope   = Model.prototype.className,
+        that    = this,
+        filters = {},
+        Collection  = new FilterableCollection(filters), 
+        last_update = null;
+
     // cache
 
-    this.load = function(name) {
-      var collection = new Collection();
-      var cache      = this.load(name);
-      for(i in cache) collection.push(new Model(cache[i]));
-      return Collection.from(cache);
-    }
-
-    this.set = function(name, objects, last_update) {
+    this.set = function(name, objects) {
+      last_update = new Date().getTime();
       LocalCache.save(scope, name, objects);
       LocalCache.save(scope, name + "-update", last_update);
     }
 
     this.get = function(name) {
       return LocalCache.get(scope, name) || [];
+    }
+
+    this.load = function(name) {
+      var collection = new Collection();
+      var cache      = this.get(name);
+      for(i in cache) collection.push(new Model(cache[i]));
+      return Collection.from(cache);
     }
 
     // filter
@@ -74,7 +89,7 @@ define(['libs/local_cache'], function(LocalCache) {
     }
 
     this.add_collection = function(name, filter_func) {
-      specs[name] = function(item) {
+      filters[name] = function(item) {
         return filter_func.apply(item);
       }
     }
@@ -111,10 +126,9 @@ define(['libs/local_cache'], function(LocalCache) {
     }
   
     this.get = function(id, callback) {
-      var collection = this.all();
-      for(i in collection)
-        if(collection[i].id == id)
-          callback(collection[i]);
+      var item = collections.collection('all').get(id);
+      console.log(item);
+      callback(item);
     }
 
     // custom queries
