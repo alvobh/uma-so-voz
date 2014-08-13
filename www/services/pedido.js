@@ -18,6 +18,10 @@ define(['application', 'libs/query_wrapper', 'libs/query_cache', 'services/atual
       this.relation('atualizacoes').add(atualizacao);
       this.set('fechado', atualizacao.get('fecha_pedido'));
       this.save();
+    },
+
+    is_mine: function() {
+      return this.get('user_uuid') == ionic.Platform.device().uuid;
     }
 
   });
@@ -67,7 +71,7 @@ define(['application', 'libs/query_wrapper', 'libs/query_cache', 'services/atual
     },
 
     mine: function() {
-      return this.get('user_uuid') == ionic.Platform.device().uuid;
+      return this.is_mine();
     }
 
   });

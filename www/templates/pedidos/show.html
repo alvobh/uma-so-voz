@@ -1,7 +1,9 @@
 <ion-view class="pedidos-show" title="Pedido">	
 	<ion-content class="has-header">
-			<button class="button button-icon icon ion-trash-b" ng-click="deletePedido()" ng-show="{{meu_pedido}}"></button>
-	</ion-content>
+		
+		 <ion-nav-buttons side="right">
+	    <button class="button button-icon icon ion-trash-b" ng-click="deletePedido()" ng-show="pedido.is_mine()"></button>
+	  </ion-nav-buttons>
 
 		<div class="cabecalho padding-top">
 			<div class="padding">

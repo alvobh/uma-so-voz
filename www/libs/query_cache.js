@@ -16,7 +16,6 @@ define(['libs/local_cache'], function(LocalCache) {
 
     Collection.prototype.get = function(id) {
       for(i in this) { 
-        console.log(this[i]);
         if(this[i] && this[i].id == id)
           return this[i];   
       }
@@ -57,7 +56,7 @@ define(['libs/local_cache'], function(LocalCache) {
       var collection = new Collection();
       var cache      = this.get(name);
       for(i in cache) collection.push(new Model(cache[i]));
-      return Collection.from(cache);
+      return collection;
     }
 
     // filter
@@ -127,7 +126,6 @@ define(['libs/local_cache'], function(LocalCache) {
   
     this.get = function(id, callback) {
       var item = collections.collection('all').get(id);
-      console.log(item);
       callback(item);
     }
 
