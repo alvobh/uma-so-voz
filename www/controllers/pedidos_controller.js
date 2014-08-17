@@ -13,7 +13,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
     }
   })
 
-  .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicScrollDelegate, $ionicLoading, Pedido) {
+  .controller('PedidosIndex', function($scope, $rootScope, $stateParams, $ionicScrollDelegate, $ionicLoading, $ionicPlatform, Pedido) {
     $scope.title  = 'Pedidos'
     if($stateParams.filter == 'mine') $scope.title = 'Meus ' + $scope.title;
 
@@ -121,3 +121,4 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
   });
 
 });  
+
