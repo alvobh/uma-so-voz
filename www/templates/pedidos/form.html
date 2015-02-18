@@ -5,10 +5,16 @@
   </label>
 
   <label class="item item-input">
-  <textarea rows="4" type="text" ng-model="pedido.texto" placeholder="Seu Pedido" required></textarea>
-    
+    <textarea rows="10" type="text" ng-model="pedido.texto" placeholder="Seu Pedido" required></textarea>
   </label>
 
-  <button class="button button-block button-positive activated" ng-click="cria(pedido)">Enviar</button>
+  <span class="item item-checkbox">
+    <label class="checkbox">
+      <input type="checkbox">
+    </label>
+    Deixar o pedido público?
+  </span>
+
+  <button class="button button-block button-positive" ng-click="cria(pedido)">Enviar</button>
 
 </div>

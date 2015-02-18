@@ -25,17 +25,24 @@
 
 
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-dark">
-      <h1 class="title">Menu</h1>
-    </ion-header-bar>
+    <div class="header">
+      <img src="assets/img/icon-white.png" />
+    </div>
 
     <ion-content scroll="false" ng-controller="ContentController">
-      <div class="list sidebar">
-        <div class="item-divider padding-left">#umasóvoz</div>
-        <a class="item" ng-href="#/pedidos/all"  nav-clear menu-close>Pedidos</a>
+      <div class="list sidebar padding-top">
+        <span class="item item-divider">Oração</span>
+        <a class="item" ng-href="#/pedidos/all"  nav-clear menu-close>
+          Pedidos
+          <span class=" indicator">7</span>
+        </a>
         <a class="item" ng-href="#/pedidos/mine" nav-clear menu-close>Meus Pedidos</a>
-        <a class="item inactive">Minha Lista de Oração</a>
-        <a class="item inactive">Reflexão do Dia</a>
+        <a class="item" ng-href="#/pedidos/mine" nav-clear menu-close>Reflexão</a>
+
+        <span class="item item-divider">Comunidade</span>
+        <a class="item" ng-href="#/pedidos/all"  nav-clear menu-close>Avisos</a>
+        <a class="item" ng-href="#/pedidos/mine" nav-clear menu-close>Oportunidades</a>
+        <a class="item" ng-href="#/pedidos/mine" nav-clear menu-close>Doação</a>
       </div>
     </ion-content>
   </ion-side-menu>

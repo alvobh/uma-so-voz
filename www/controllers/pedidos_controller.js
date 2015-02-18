@@ -53,7 +53,7 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
     }
 
     $rootScope.$on('pedidos.new', function(event, pedido) {
-      $scope.update_pedidos();
+      $scope.update_pedidos('opened');
       $ionicLoading.show({ template: 'Pedido adicionado!', noBackdrop: true, duration: 2000 });
       $scope.$apply();
     });

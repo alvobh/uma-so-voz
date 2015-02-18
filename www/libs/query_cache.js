@@ -23,9 +23,12 @@ define(['libs/local_cache'], function(LocalCache) {
 
     Collection.from = function() {
       var tmp_collection = new Collection();
-      for(a in arguments)
-        for(i in arguments[a])
-          tmp_collection.push(arguments[a][i]);
+      for(a in arguments) {
+        arguments[a].forEach(function(item) {
+          tmp_collection.push(item);
+        })
+      }
+          
       return tmp_collection;   
     }
 
@@ -65,7 +68,7 @@ define(['libs/local_cache'], function(LocalCache) {
       if(object.constructor !== Array) {
         for(f in filters)
           if(this[f] && filters[f].apply(object))
-            this[f] = Collection.from([object], this.collection(name));
+            this[f] = Collection.from([object], this.collection(f));
       } else {
         for(f in filters)
           this[f] = null;
@@ -74,7 +77,7 @@ define(['libs/local_cache'], function(LocalCache) {
 
     // interface
 
-    this.collection = function(name) {
+    this.collection = function(name) {      
       if(!this['all']) this['all'] = this.load('all');
       if(!this[name] ) this[name]  = this.collection('all').filter(name);
       return this[name];
