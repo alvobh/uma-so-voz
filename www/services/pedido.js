@@ -72,6 +72,10 @@ define(['application', 'libs/query_wrapper', 'libs/query_cache', 'services/atual
 
     mine: function() {
       return this.is_mine();
+    },
+
+    public: function() {
+      return !this.get('privado');
     }
 
   });
