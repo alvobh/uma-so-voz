@@ -14,6 +14,7 @@ define(['libs/parse.min'], function() {
 
   // TODO pegar automatico
   var env = 'development';
-  Parse.initialize(PARSE[env].app, PARSE[env].js);
+  var prod = 'production'
+  Parse.initialize(PARSE[prod].app, PARSE[prod].js);
 
 })
