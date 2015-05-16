@@ -24,6 +24,12 @@ define([
         controller:  'PedidosShow'
       })
 
+      .state('reflexao',{
+        url: "/reflexao",
+        controller: 'ReflexaoIndex',
+        templateUrl: "templates/reflexao/index.html"
+      })
+
       ;
 
     $urlRouterProvider.otherwise('/pedidos/public');

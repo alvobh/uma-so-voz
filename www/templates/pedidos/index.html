@@ -19,9 +19,9 @@
 
       <ion-item ng-repeat="pedido in pedidos" ng-href="#/pedidos/show/{{pedido.id}}" class="item">
         <h2>{{ pedido.get('nome') }}</h2>
+        <p ng-show="{{pedido.get('privado')}}" style="color:RED; font-size:x-small">Privado</p>
         <p class="item-text-wrap">{{ pedido.get('texto') }}</p>
       </ion-item>
-
     </ion-list> 
 
 <!-- 

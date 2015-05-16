@@ -42,7 +42,8 @@ define(['application', 'libs/local_cache', 'services/pedido'], function(app, Loc
         $scope.filter = new_filter;
     }
 
-    $scope.load_pedidos = function() {      
+
+    $scope.load_pedidos = function() {  
       $rootScope.showLoading();
       Pedido.fetch(function(pedidos) {
         $rootScope.hideLoading();

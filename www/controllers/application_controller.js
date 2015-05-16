@@ -1,14 +1,18 @@
 define(['application'], function(app) {
 
-  app.controller('ContentController', function($scope, $rootScope, $state, $ionicSideMenuDelegate) {
+  app.controller('ContentController', function($scope, $rootScope, $state,  $ionicSideMenuDelegate) {
+
+    $rootScope.connection = function(){
+      $rootScope.conected = true;
+    };
 
     $rootScope.showLoading = function() {
       $rootScope.loading = true;
-    }
+    };
 
     $rootScope.hideLoading = function() {
       $rootScope.loading = false;
-    }
+    };
     
     $scope.toggleLeft = function() {
       $ionicSideMenuDelegate.toggleLeft();
@@ -16,6 +20,10 @@ define(['application'], function(app) {
 
     $scope.toggleRight = function() {
       $ionicSideMenuDelegate.toggleRight();
+    };
+
+    $scope.browse = function(v) {
+      window.open(v, "_system", "location=yes");
     };
 
     $scope.goBack = function() {
@@ -37,3 +45,4 @@ define(['application'], function(app) {
 
 });
 
+  
