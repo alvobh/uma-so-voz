@@ -65,6 +65,10 @@ Qualquer dúvida
 
 ionic --help
 
+Cordova pluggins
+---------------------
+cordova plugin add org.apache.cordova.network-information
+
 
 TO DO
 =====================

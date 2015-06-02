@@ -28,15 +28,15 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-// gulp.task('js', function () {
-//   gulp.src(['src/**/module.js', 'src/**/*.js'])
-//     .pipe(sourcemaps.init())
-//       .pipe(concat('app.js'))
-//       .pipe(ngAnnotate())
-//       .pipe(uglify())
-//     .pipe(sourcemaps.write())
-//     .pipe(gulp.dest('.'))
-// })
+gulp.task('js', function () {
+  gulp.src(['src/**/module.js', 'src/**/*.js'])
+    .pipe(sourcemaps.init())
+      .pipe(concat('app.js'))
+      .pipe(ngAnnotate())
+      .pipe(uglify())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('.'))
+})
 
 gulp.task('watch', ['js'], function () {
   gulp.watch('src/**/*.js', ['js'])

@@ -2,6 +2,7 @@ define([
 
   'application',
   '../controllers/pedidos_controller',
+  '../controllers/reflexao_controller',
   '../controllers/application_controller'
 
 ], function(app) { 
@@ -24,12 +25,12 @@ define([
         controller:  'PedidosShow'
       })
 
-      .state('reflexao',{
+      //reflexao
+      .state('reflexao', {
         url: "/reflexao",
-        controller: 'ReflexaoIndex',
-        templateUrl: "templates/reflexao/index.html"
+        templateUrl: "templates/reflexao/index.html",
+        controller: 'ReflexaoIndex'
       })
-
       ;
 
     $urlRouterProvider.otherwise('/pedidos/public');

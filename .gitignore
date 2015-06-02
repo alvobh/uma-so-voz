@@ -27,3 +27,4 @@ platforms/android/res/xml/config.xml
 build/
 platforms/ios/www
 platforms/ios/.staging
+/.project

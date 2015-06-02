@@ -1,26 +1,48 @@
-define(['application',  'services/reflexao'], function(app, LocalCache) {
+define(['application' ], function(app, LocalCache) {
 
+  url = "http://www.outrasfronteiras.com.br/blog/feed/";
   app
+  .controller("ReflexaoIndex", ['$scope','FeedService', function ($scope,Feed) {    
+    $scope.title  = 'Reflexão'
+            
+      Feed.parseFeed($scope.feedSrc).then(function(res){
+          //$scope.loadButonText=angular.element(e.target).text();
+        $scope.feeds=res.data.responseData.feed.entries;
+                
+    });
 
-  .controller('ReflexaoIndex', function($scope, $rootScope, $ionicSideMenuDelegate) {
-	$scope.title  = 'Pedidos'
+    $scope.load_reflexao = function(title) {  
+      $rootScope.showLoading();
+
+      var query = 'site:'+url+' '+title;
+      Feed.findFeeds(query, function(result){
+          
+      });
 
 
-    $scope.load_posts = function(pedidos, page) {    
-        $http.get("http://ajax.googleapis.com/ajax/services/feed/load", { params: { "v": "1.0", "q": "http://www.outrasfronteiras.com.br/blog/feed/" } })
-            .success(function(data) {
-                $scope.rssTitle = data.responseData.feed.title;
-                $scope.rssUrl = data.responseData.feed.feedUrl;
-                $scope.rssSiteUrl = data.responseData.feed.link;
-                $scope.entries = data.responseData.feed.entries;
-                window.localStorage["entries"] = JSON.stringify(data.responseData.feed.entries);
-            })
-            .error(function(data) {
-                console.log("ERROR: " + data);
-                if(window.localStorage["entries"] !== undefined) {
-                    $scope.entries = JSON.parse(window.localStorage["entries"]);
-                }
-            });
+      Pedido.fetch(function(pedidos) {
+        $rootScope.hideLoading();
+        $scope.update_pedidos();
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$apply();
+      });
     }
     
-  })
+}])
+
+.controller("ReflexaoTexto",function(){
+  $scope.title = "Reflexão";
+
+
+
+});
+
+app.factory('FeedService',['$http',function($http){
+    return {
+        parseFeed : function(url){
+            return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
+        }
+    }
+}]);
+  
+});
