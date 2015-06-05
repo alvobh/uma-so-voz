@@ -1,4 +1,3 @@
-
 <ion-view class="reflexao-index" title="{{ title }}">
 
   <ion-nav-buttons side="left">
@@ -7,13 +6,11 @@
 
   <ion-content class="padding listagem">
 
-    <!-- <ion-refresher pulling-text="Puxe para atualizar"></ion-refresher> -->
-
     <ion-list class="inset-list">
 
-      <ion-item ng-repeat="feed in feeds" ng-href="#/reflexao/" class="item" ng-click="entry.link">
-        <h2><a href="#/reflexao">{{ feed.title }}</a></h2>
-        <p>{{feed.contentSnippet}}</p>
+      <ion-item ng-repeat="feed in feeds" ng-href="{{feed.link}}" class="item" ng-click="entry.link">
+        <h2 style="color:#08C;">{{ feed.title }}</h2>
+        <p style="color:#000;">{{feed.contentSnippet}}</p>
         <p style="color:BLUE; font-size:x-small">{{feed.publishedDate}}</p>
 
       </ion-item>
