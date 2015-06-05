@@ -1,8 +1,9 @@
 {
-    "org.apache.cordova.device": {
+    "com.ionic.keyboard": {
         "source": {
-            "type": "registry",
-            "id": "org.apache.cordova.device"
+            "type": "git",
+            "url": "https://github.com/driftyco/ionic-plugins-keyboard.git",
+            "subdir": "."
         }
     },
     "org.apache.cordova.console": {
@@ -21,6 +22,15 @@
         "source": {
             "type": "git",
             "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git",
+            "type": "git",
+            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-console.git",
+            "subdir": "."
+        }
+    },
+    "org.apache.cordova.device": {
+        "source": {
+            "type": "git",
+            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git",
             "subdir": "."
         }
     }
