@@ -17,8 +17,6 @@ define([
         templateUrl: "templates/pedidos/index.html"
       })
 
-      // show
-
       .state('pedidos-show', {
         url: '/pedidos/show/:id',
         templateUrl: 'templates/pedidos/show.html',
@@ -30,6 +28,12 @@ define([
         url: "/reflexao",
         templateUrl: "templates/reflexao/index.html",
         controller: 'ReflexaoIndex'
+      })
+
+      .state('reflexao-show', {
+        url: "/reflexao/show/:titulo/:texto",
+        templateUrl: "templates/reflexao/show.html",
+        controller: 'ReflexaoShow'
       })
       ;
 
