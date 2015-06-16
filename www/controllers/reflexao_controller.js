@@ -2,23 +2,19 @@ define(['application' ], function(app, LocalCache) {
 
   url = "http://www.outrasfronteiras.com.br/blog/feed/";
   app
-  .controller("ReflexaoIndex", ['$scope','$rootScope','FeedService', function ($scope,$rootScope,Feed) {    
+  .controller("ReflexaoIndex", ['$scope','FeedService', function ($scope,Feed) {    
     $scope.title  = 'Reflexão'
            
     Feed.parseFeed($scope.feedSrc).then(function(res){
         $scope.feeds=res.data.responseData.feed.entries;         
     });
-    console.log($rootScope.feeds);
 }])
 
 
-.controller("ReflexaoShow", ['$scope','$rootScope','$stateParams', function ($scope,$rootScope,$stateParams) {    
+.controller("ReflexaoShow", ['$scope','$stateParams', function ($scope,$stateParams) {    
     $scope.title  = 'Reflexão';
     $scope.titulo = $stateParams.titulo;
-    $scope.texto = $stateParams.texto;
-
-    
-    console.log($stateParams.titulo);               
+    $scope.texto = $stateParams.texto;    
 }])
 ;
 
@@ -35,12 +31,6 @@ app.factory('FeedService',['$http',function($http){
       }
     }
 }]);
-
-app.filter('unsafe', function($sce) {
-    return function(val) {
-        return $sce.trustAsHtml(val);
-    };
-});
 
 app.filter('htmlToPlaintext', function() {
     return function(text) {
