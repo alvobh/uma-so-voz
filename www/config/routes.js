@@ -31,7 +31,7 @@ define([
       })
 
       .state('reflexao-show', {
-        url: "/reflexao/show/:titulo/:texto",
+        url: "/reflexao/show/:titulo/:autor/:texto/:date",
         templateUrl: "templates/reflexao/show.html",
         controller: 'ReflexaoShow'
       })

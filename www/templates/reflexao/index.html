@@ -4,10 +4,9 @@
   </ion-nav-buttons>
 
   <ion-content class="padding listagem">
-
     <ion-list class="inset-list">
 
-      <ion-item ng-repeat="feed in feeds" ng-href="#/reflexao/show/{{feed.title}}/{{feed.content | htmlToPlaintext }}" class="item" ng-click="entry.link">
+      <ion-item ng-repeat="feed in feeds" ng-href="#/reflexao/show/{{feed.title | htmlToPlaintext }}/{{feed.author}}/{{feed.content | htmlToPlaintext }}/{{feed.publishedDate}}" class="item" ng-click="entry.link">
         <h2 style="color:#08C;">{{ feed.title }}</h2>
         <p style="color:#000;">{{feed.contentSnippet}}</p>
         <!-- <p style="color:BLUE; font-size:x-small">{{feed.publishedDate}}</p> -->

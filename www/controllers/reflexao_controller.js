@@ -14,7 +14,9 @@ define(['application' ], function(app, LocalCache) {
 .controller("ReflexaoShow", ['$scope','$stateParams', function ($scope,$stateParams) {    
     $scope.title  = 'Reflexão';
     $scope.titulo = $stateParams.titulo;
-    $scope.texto = $stateParams.texto;    
+    $scope.texto = $stateParams.texto;
+    $scope.autor = $stateParams.autor;
+    $scope.publishDate = $stateParams.date;
 }])
 ;
 
@@ -32,9 +34,15 @@ app.factory('FeedService',['$http',function($http){
     }
 }]);
 
+app.filter('unsafe', function($sce) {
+    return function(val) {
+        return $sce.trustAsHtml(val);
+    };
+});
+
 app.filter('htmlToPlaintext', function() {
     return function(text) {
-      return String(text).replace(/<[^>]+>/gm, '').replace('YARPP powered by AdBistroPowered by','');
+      return String(text).replace(/<[^>]+>/gm, '').replace(/"/gm, '').replace(/#/gm, '').replace('YARPP powered by AdBistroPowered by','');
     };
   }
 );
