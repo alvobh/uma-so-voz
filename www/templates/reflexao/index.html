@@ -6,9 +6,9 @@
   <ion-content class="padding listagem">
     <ion-list class="inset-list">
 
-      <ion-item ng-repeat="feed in feeds" ng-href="#/reflexao/show/1" class="item" ng-click="entry.link">
-        <h2 style="color:#08C;">{{ feed.title }}</h2>
-        <p style="color:#000;">{{feed.contentSnippet}}</p>
+      <ion-item ng-repeat="feed in reflexao" ng-href="#/reflexao/show/{{feed.id}}" class="item" ng-click="entry.link">
+        <h2 style="color:#08C;">{{ feed.titulo }}</h2>
+        <p style="color:#000;">{{feed.resumo}}</p>
         <!-- <p style="color:BLUE; font-size:x-small">{{feed.publishedDate}}</p> -->
 
       </ion-item>

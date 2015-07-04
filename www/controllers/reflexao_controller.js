@@ -20,7 +20,9 @@ define(['application', 'libs/local_cache' ], function(app, LocalCache) {
                         media: attrs.media|| [],
                         categoria:  attrs.categories|| ""};
          Reflexao.push(reflexao);
+
         }
+        $scope.reflexao = Reflexao;
     });
 }])
 
