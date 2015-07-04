@@ -9,8 +9,8 @@
 
     <!-- <ion-refresher pulling-text="Puxe para atualizar"></ion-refresher> -->
     <center><h3>{{titulo}}</h3></center>
-    <p>{{texto}}</p>
-   	<p style="color:BLUE; font-size:x-small" align="right">{{autor}}--{{publishDate}}</p>
+    <p ng-bind-html="texto"></p>
+   	<p style="color:BLUE; font-size:x-small" align="right">{{autor}}--{{data}}</p>
     
 </ion-content>
 
