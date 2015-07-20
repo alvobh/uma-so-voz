@@ -21,8 +21,6 @@
     "cordova-plugin-network-information": {
         "source": {
             "type": "git",
-            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git",
-            "type": "git",
             "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-console.git",
             "subdir": "."
         }
@@ -31,6 +29,13 @@
         "source": {
             "type": "git",
             "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git",
+            "subdir": "."
+        }
+    },
+    "com.ionic.deploy": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/driftyco/ionic-plugins-deploy",
             "subdir": "."
         }
     }

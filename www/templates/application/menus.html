@@ -32,13 +32,16 @@
     <ion-content scroll="false" ng-controller="ContentController">
       <div class="list sidebar padding-top">
         <span class="item item-divider">Oração</span>
-        <a class="item" ng-href="#/pedidos/public"  nav-clear menu-close>
+        <a class="item item-divider" ng-href="#/pedidos/public"  nav-clear menu-close>
           Pedidos
           <!-- <span class=" indicator">7</span> -->
         </a>
+        <a class="item" ng-href="#/pedidos/opened" nav-clear menu-close>  Em Abertos</a>
+        <a class="item" ng-href="#/pedidos/closed" nav-clear menu-close>  Fechados</a>
+        
         <a class="item" ng-href="#/pedidos/mine" nav-clear menu-close>Meus Pedidos</a>
         
-        <a class="item" ng-href="#/reflexao" nav-clear menu-close>Reflexão</a>
+        <a class="item item-divider" ng-href="#/reflexao" nav-clear menu-close>Reflexão</a>
       <!--
         <span class="item item-divider">Comunidade</span>
         <a class="item" ng-href="#/pedidos/public"  nav-clear menu-close>Avisos</a>

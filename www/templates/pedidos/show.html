@@ -37,8 +37,8 @@
 					    <input type="text" placeholder="Qual atualização houve?" ng-model="atualizacao.texto">
 					  </label>
 
-					  <div class="item item-checkbox">
-				     	É para fechar o pedido?
+					  <div ng-show="{{pedido.is_mine()}}" class="item item-checkbox">
+				     	Fechar o pedido?
 						  <label class="checkbox ">
 				        <input type="checkbox" ng-model="atualizacao.fecha_pedido" >
 				     	</label>
