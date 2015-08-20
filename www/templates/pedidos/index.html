@@ -4,7 +4,7 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
 
-  <div class="has-header content padding">
+  <div class="has-header content padding" style="z-Index: 9999">
     <div class="button-bar bar-positive padding">
       <a class="button icon icon-left ion-heart"        ng-class="{ active: filter == 'opened' }" ng-click="update_pedidos('opened')">Em Aberto</a>
       <a class="button icon icon-left ion-checkmark-circled" ng-class="{ active: filter == 'closed'  }" ng-click="update_pedidos('closed')">Respondidos</a>
