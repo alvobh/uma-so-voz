@@ -67,7 +67,7 @@ define(['application', 'libs/query_wrapper', 'libs/query_cache', 'services/atual
     },
 
     opened: function() {
-      return !this.get('fechado');
+      return !this.get('fechado') && !this.get('privado') ;
     },
 
     mine: function() {
